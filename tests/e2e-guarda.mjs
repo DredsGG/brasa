@@ -64,8 +64,10 @@ const t0 = Date.now();
 await clicar(p, '.menu [data-fog="agora"]');
 await swv(() => { self.__brasaGuarda.rodar({ ensaio: false, origem: 'agora' }).catch(() => null); self.__brasaGuarda.rodar({ ensaio: false, origem: 'agora' }).catch(() => null); return 1; });
 const aberta = await until(async () => swv(async () => { const ws = await chrome.windows.getAll({ populate: true }); const w = ws.find((x) => x.tabs.some((t) => /brasa-guarda/.test(t.url))); const r = (await chrome.storage.local.get('br.fog.run'))['br.fog.run']; return w ? { state: w.state, focused: w.focused, propria: w.tabs.length === 1, modo: r && r.modo } : null; }), 15000, 200);
-// ⚠️ no Chromium headless a janela não fica "minimized" de verdade (o estado volta "normal"); confere que é própria e sem foco
-check('abre as Mensagens numa janela própria, sem roubar o foco', aberta && aberta.propria && !aberta.focused && aberta.modo === 'janela', aberta);
+// ⚠️ no Chromium headless a janela não fica "minimized" de verdade (o estado volta "normal"); confere que é própria e sem foco.
+// No Linux sem tela (CI do GitHub) não há gerenciador de janelas: a janela nova sempre ganha o foco, então lá só a "própria" conta.
+const semGerenciador = process.platform === 'linux';
+check('abre as Mensagens numa janela própria, sem roubar o foco' + (semGerenciador ? ' (foco não conferido: Linux sem gerenciador de janelas)' : ''), aberta && aberta.propria && (!aberta.focused || semGerenciador) && aberta.modo === 'janela', aberta);
 const fimReal = await until(async () => ((await lerStorage(sw, 'br.log')) || []).find((x) => x.k === 'fogFim' && x.a[0] === 'real' && x.em > t0), 150000, 500);
 check('rodada terminou', !!fimReal, fimReal);
 check('disparos simultâneos abriram UMA rodada', ((await lerStorage(sw, 'br.log')) || []).filter((x) => x.k === 'fogInicio' && x.em > t0).length === 1);
