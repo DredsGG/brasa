@@ -1,0 +1,46 @@
+name: Test
+
+# Loads Brasa as a real unpacked extension in Chromium (Playwright) and runs the test suite against a
+# simulated TikTok (tests/mock.mjs, tests/mock-dm.mjs): static checks, then the E2E files one by one.
+# Nothing here touches the real tiktok.com; the simulated Messages page means no message is ever sent.
+# TZ: the streak keeper works on the computer's clock; the tests were written for Brazil time.
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    env:
+      TZ: America/Sao_Paulo
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright and Chromium
+        run: |
+          cd tests
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Static checks (i18n, streak rules)
+        run: |
+          cd tests
+          node i18n-teste.mjs
+          node guarda-regras-teste.mjs
+
+      - name: E2E
+        run: |
+          cd tests
+          for t in e2e-base e2e-foco e2e-guarda e2e-grupos e2e-baixar e2e-auto e2e-coment e2e-conta e2e-engaja recarga-e2e; do
+            echo "::group::$t"; node "$t.mjs"; echo "::endgroup::"
+          done
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: shots
+          path: tests/shots/**

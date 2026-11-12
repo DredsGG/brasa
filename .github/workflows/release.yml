@@ -1,0 +1,44 @@
+name: Release
+
+# Publish a GitHub Release whose tag is vX.Y.Z (same as "version" in extension/manifest.json).
+# This job attaches brasa-vX.Y.Z.zip (Chrome, Edge, Brave, Opera GX: manifest.json at the root).
+# A release whose title contains "URGENTE" is treated by the extension as urgent: the notice has no close button
+# and Brasa pauses until the person updates.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Check that the tag matches manifest.json
+        run: |
+          MANIFEST="$(jq -r .version extension/manifest.json)"
+          if [ "${TAG#v}" != "$MANIFEST" ]; then
+            echo "::error::Tag $TAG does not match manifest version $MANIFEST"; exit 1
+          fi
+
+      - name: Build zip
+        run: cd extension && zip -r "../brasa-$TAG.zip" . -x '.*'
+
+      - name: Attach zip and install notes
+        env:
+          NOTES: |
+            ### Install
+            **Chrome, Edge, Brave, Opera GX:** download **brasa-${{ github.event.release.tag_name }}.zip**, unzip it to a folder you'll keep, open the extensions page (`chrome://extensions`, `edge://extensions`, `brave://extensions` or `opera://extensions`), turn on **Developer mode**, click **Load unpacked** and pick the folder. To update later, unzip the new version over the same folder: the extension reloads itself within a minute.
+        run: |
+          gh release upload "$TAG" "brasa-$TAG.zip" --clobber
+          gh release view "$TAG" --json body -q .body > old.md
+          { printf '%s\n\n' "$NOTES"; cat old.md; } > notes.md
+          gh release edit "$TAG" --notes-file notes.md

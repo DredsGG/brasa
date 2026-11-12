@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "Brasa",
+  "version": "1.0.0",
+  "default_locale": "en",
+  "description": "__MSG_appDesc__",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "__MSG_actionTitle__",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/sw.js"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "tabs",
+    "scripting",
+    "downloads",
+    "notifications"
+  ],
+  "optional_permissions": [
+    "background"
+  ],
+  "host_permissions": [
+    "https://www.tiktok.com/*",
+    "https://api.github.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.tiktok.com/*"],
+      "js": ["src/proto.js", "src/page.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.tiktok.com/*"],
+      "js": [
+        "src/defaults.js",
+        "src/i18n.js",
+        "src/novidades.js",
+        "src/comum.js",
+        "src/vendor/qrcode.js",
+        "src/apoio.js",
+        "src/core.js",
+        "src/menu.js",
+        "src/ui.js", "src/conta.js",
+        "src/foco.js",
+        "src/guarda-regras.js",
+        "src/guarda.js",
+        "src/acoes.js",
+        "src/baixar.js",
+        "src/auto.js", "src/engaja.js", "src/comentarios.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "author": "Dreds",
+  "homepage_url": "https://github.com/DredsGG/brasa",
+  "minimum_chrome_version": "111"
+}

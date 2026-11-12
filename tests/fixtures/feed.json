@@ -1,0 +1,2323 @@
+{
+ "medidoEm": "2026-11-11",
+ "fonte": "tiktok.com/foryou sem login (perfil novo do Playwright); itens 7000… são sintéticos (ver cabeçalho de ferramentas/fixture.mjs) · anonimizada em 2026-11-12 (criadores, legendas, músicas, efeitos e ids trocados por dados inventados)",
+ "recommend": [
+  {
+   "extra": {
+    "fatal_item_ids": [],
+    "logid": "fixture",
+    "now": 1794430560000
+   },
+   "hasMore": true,
+   "itemList": [
+    {
+     "id": "7700000000000000001",
+     "desc": "Vídeo de teste 1 #fyp #foryou",
+     "createTime": 1793796481,
+     "CategoryType": 110,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000001",
+      "uniqueId": "criador1",
+      "nickname": "Criador 1",
+      "secUid": "MS4w-fixture-0",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7200000000000000001",
+      "title": "som original",
+      "authorName": "Som 1",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 59400,
+      "commentCount": 5212,
+      "diggCount": 1300000,
+      "playCount": 4700000,
+      "shareCount": 77400
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000001",
+      "duration": 17,
+      "width": 576,
+      "height": 1024,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste001",
+       "UrlKey": "v0teste001_h264_540p_387619",
+       "DataSize": 856010,
+       "Width": 576,
+       "Height": 1024,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+       ]
+      }
+     },
+     "anchors": [
+      {
+       "id": "1000001",
+       "type": 28,
+       "keyword": "Efeito 1",
+       "description": "Efeitos"
+      }
+     ]
+    },
+    {
+     "id": "7700000000000000002",
+     "desc": "Vídeo de teste 2 #fyp #foryou",
+     "createTime": 1793580320,
+     "CategoryType": 120,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000002",
+      "uniqueId": "criador2",
+      "nickname": "Criador 2",
+      "secUid": "MS4w-fixture-1",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7200000000000000002",
+      "title": "original sound - 愛Jehnz1e",
+      "authorName": "Som 2",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 2593,
+      "commentCount": 319,
+      "diggCount": 125600,
+      "playCount": 569300,
+      "shareCount": 4456
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000002",
+      "duration": 0,
+      "width": 0,
+      "height": 0,
+      "ratio": "",
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000002",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000002&o=1"
+     },
+     "imagePost": {
+      "images": [
+       {
+        "imageWidth": 1282,
+        "imageHeight": 2282,
+        "imageURL": {
+         "urlList": [
+          "https://p16-common-sign.tiktokcdn.com/teste/foto.jpeg?item=7700000000000000002&n=0"
+         ]
+        }
+       },
+       {
+        "imageWidth": 1284,
+        "imageHeight": 2044,
+        "imageURL": {
+         "urlList": [
+          "https://p16-common-sign.tiktokcdn.com/teste/foto.jpeg?item=7700000000000000002&n=1"
+         ]
+        }
+       }
+      ],
+      "title": ""
+     }
+    },
+    {
+     "id": "7700000000000000003",
+     "desc": "Vídeo de teste 3 #fyp #foryou",
+     "createTime": 1793667802,
+     "CategoryType": 100,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000003",
+      "uniqueId": "criador3",
+      "nickname": "Criador 3",
+      "secUid": "MS4w-fixture-2",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7200000000000000003",
+      "title": "som original",
+      "authorName": "Som 3",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 9698,
+      "commentCount": 447,
+      "diggCount": 143200,
+      "playCount": 944000,
+      "shareCount": 3266
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000003",
+      "duration": 321,
+      "width": 1024,
+      "height": 576,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000003",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000003&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste002",
+       "UrlKey": "v0teste002_h264_540p_170053",
+       "DataSize": 6831209,
+       "Width": 1024,
+       "Height": 576,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=play_h264_540"
+       ]
+      }
+     }
+    },
+    {
+     "id": "7700000000000000004",
+     "desc": "Vídeo de teste 4 #fyp #foryou",
+     "createTime": 1793707382,
+     "CategoryType": 120,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000004",
+      "uniqueId": "criador4",
+      "nickname": "Criador 4",
+      "secUid": "MS4w-fixture-3",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7200000000000000004",
+      "title": "som original",
+      "authorName": "Som 4",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 2730,
+      "commentCount": 122,
+      "diggCount": 78100,
+      "playCount": 535600,
+      "shareCount": 4665
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000004",
+      "duration": 60,
+      "width": 576,
+      "height": 720,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000004",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000004&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste003",
+       "UrlKey": "v0teste003_h264_540p_627960",
+       "DataSize": 4732935,
+       "Width": 576,
+       "Height": 720,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=play_h264_540"
+       ]
+      }
+     }
+    }
+   ],
+   "log_pb": {
+    "impr_id": "fixture"
+   },
+   "statusCode": 0,
+   "status_code": 0,
+   "status_msg": ""
+  },
+  {
+   "extra": {
+    "fatal_item_ids": [],
+    "logid": "fixture",
+    "now": 1794430560000
+   },
+   "hasMore": true,
+   "itemList": [
+    {
+     "id": "7700000000000000005",
+     "desc": "Vídeo de teste 5 #fyp #foryou",
+     "createTime": 1793210147,
+     "CategoryType": 120,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000005",
+      "uniqueId": "criador5",
+      "nickname": "Criador 5",
+      "secUid": "MS4w-fixture-4",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7200000000000000005",
+      "title": "som original",
+      "authorName": "Som 5",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 2207,
+      "commentCount": 164,
+      "diggCount": 42100,
+      "playCount": 236500,
+      "shareCount": 5539
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000005",
+      "duration": 0,
+      "width": 0,
+      "height": 0,
+      "ratio": "",
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000005",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000005&o=1"
+     },
+     "imagePost": {
+      "images": [
+       {
+        "imageWidth": 2160,
+        "imageHeight": 2880,
+        "imageURL": {
+         "urlList": [
+          "https://p16-common-sign.tiktokcdn.com/teste/foto.jpeg?item=7700000000000000005&n=0"
+         ]
+        }
+       },
+       {
+        "imageWidth": 1170,
+        "imageHeight": 2080,
+        "imageURL": {
+         "urlList": [
+          "https://p16-common-sign.tiktokcdn.com/teste/foto.jpeg?item=7700000000000000005&n=1"
+         ]
+        }
+       }
+      ],
+      "title": "fofocas kkkkk"
+     }
+    },
+    {
+     "id": "7000000000000000001",
+     "desc": "ANUNCIO de teste",
+     "createTime": 1793796481,
+     "CategoryType": 110,
+     "isAd": true,
+     "author": {
+      "id": "7661731110140937236",
+      "uniqueId": "marca_teste",
+      "nickname": "Marca Teste",
+      "secUid": "MS4w-fixture-0",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7622433066561374984",
+      "title": "som original",
+      "authorName": "' 𝐋ia",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 59400,
+      "commentCount": 5212,
+      "diggCount": 1300000,
+      "playCount": 4700000,
+      "shareCount": 77400
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000001",
+      "duration": 17,
+      "width": 576,
+      "height": 1024,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste001",
+       "UrlKey": "v0teste001_h264_540p_387619",
+       "DataSize": 856010,
+       "Width": 576,
+       "Height": 1024,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+       ]
+      }
+     },
+     "anchors": [
+      {
+       "id": "1000002",
+       "type": 28,
+       "keyword": "Efeito 2",
+       "description": "Efeitos"
+      }
+     ],
+     "ad_info": {
+      "ad_id": 1
+     }
+    },
+    {
+     "id": "7700000000000000006",
+     "desc": "Vídeo de teste 6 #fyp #foryou",
+     "createTime": 1791841125,
+     "CategoryType": 112,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000006",
+      "uniqueId": "criador6",
+      "nickname": "Criador 6",
+      "secUid": "MS4w-fixture-5",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7200000000000000006",
+      "title": "som original",
+      "authorName": "Som 6",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 1060,
+      "commentCount": 31,
+      "diggCount": 17500,
+      "playCount": 73000,
+      "shareCount": 1084
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000006",
+      "duration": 7,
+      "width": 576,
+      "height": 1024,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000006&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000006&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000006&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000006&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000006&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000006",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000006&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste004",
+       "UrlKey": "v0teste004_h264_540p_409827",
+       "DataSize": 401324,
+       "Width": 576,
+       "Height": 1024,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000006&v=play_h264_540"
+       ]
+      }
+     }
+    },
+    {
+     "id": "7000000000000000003",
+     "desc": "LIVE de teste",
+     "createTime": 1793796481,
+     "CategoryType": 110,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000001",
+      "uniqueId": "criador1",
+      "nickname": "Criador 1",
+      "secUid": "MS4w-fixture-0",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7622433066561374984",
+      "title": "som original",
+      "authorName": "' 𝐋ia",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 59400,
+      "commentCount": 5212,
+      "diggCount": 1300000,
+      "playCount": 4700000,
+      "shareCount": 77400
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000001",
+      "duration": 17,
+      "width": 576,
+      "height": 1024,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste001",
+       "UrlKey": "v0teste001_h264_540p_387619",
+       "DataSize": 856010,
+       "Width": 576,
+       "Height": 1024,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+       ]
+      }
+     },
+     "anchors": [
+      {
+       "id": "1000003",
+       "type": 28,
+       "keyword": "Efeito 3",
+       "description": "Efeitos"
+      }
+     ],
+     "containerType": 2,
+     "liveRoomInfo": {
+      "roomID": "7300000000000000003",
+      "title": "ao vivo",
+      "status": 2,
+      "liveUrl": ""
+     }
+    }
+   ],
+   "log_pb": {
+    "impr_id": "fixture"
+   },
+   "statusCode": 0,
+   "status_code": 0,
+   "status_msg": ""
+  },
+  {
+   "extra": {
+    "fatal_item_ids": [],
+    "logid": "fixture",
+    "now": 1794430560000
+   },
+   "hasMore": true,
+   "itemList": [
+    {
+     "id": "7000000000000000004",
+     "desc": "LOJA de teste (AnchorTypes 33)",
+     "createTime": 1793796481,
+     "CategoryType": 110,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000001",
+      "uniqueId": "criador1",
+      "nickname": "Criador 1",
+      "secUid": "MS4w-fixture-0",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7622433066561374984",
+      "title": "som original",
+      "authorName": "' 𝐋ia",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 59400,
+      "commentCount": 5212,
+      "diggCount": 1300000,
+      "playCount": 4700000,
+      "shareCount": 77400
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000001",
+      "duration": 17,
+      "width": 576,
+      "height": 1024,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste001",
+       "UrlKey": "v0teste001_h264_540p_387619",
+       "DataSize": 856010,
+       "Width": 576,
+       "Height": 1024,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+       ]
+      }
+     },
+     "anchors": [
+      {
+       "id": "1000004",
+       "type": 33,
+       "keyword": "Efeito 4",
+       "description": "Shop"
+      }
+     ],
+     "AnchorTypes": [
+      33
+     ]
+    },
+    {
+     "id": "7700000000000000007",
+     "desc": "Vídeo de teste 7 #fyp #foryou",
+     "createTime": 1788379863,
+     "CategoryType": 101,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000007",
+      "uniqueId": "criador7",
+      "nickname": "Criador 7",
+      "secUid": "MS4w-fixture-6",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7200000000000000007",
+      "title": "som original",
+      "authorName": "Som 7",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 3918,
+      "commentCount": 198,
+      "diggCount": 9718,
+      "playCount": 29200,
+      "shareCount": 1356
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000007",
+      "duration": 3561,
+      "width": 1024,
+      "height": 576,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000007&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000007&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000007&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000007&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000007&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000007",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000007&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste005",
+       "UrlKey": "v0teste005_h264_540p_346426",
+       "DataSize": 154225053,
+       "Width": 1024,
+       "Height": 576,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000007&v=play_h264_540"
+       ]
+      }
+     }
+    },
+    {
+     "id": "7000000000000000005",
+     "desc": "LOJA de teste (isECVideo)",
+     "createTime": 1793796481,
+     "CategoryType": 110,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000001",
+      "uniqueId": "criador1",
+      "nickname": "Criador 1",
+      "secUid": "MS4w-fixture-0",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7622433066561374984",
+      "title": "som original",
+      "authorName": "' 𝐋ia",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 59400,
+      "commentCount": 5212,
+      "diggCount": 1300000,
+      "playCount": 4700000,
+      "shareCount": 77400
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000001",
+      "duration": 17,
+      "width": 576,
+      "height": 1024,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste001",
+       "UrlKey": "v0teste001_h264_540p_387619",
+       "DataSize": 856010,
+       "Width": 576,
+       "Height": 1024,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+       ]
+      }
+     },
+     "anchors": [
+      {
+       "id": "1000005",
+       "type": 28,
+       "keyword": "Efeito 5",
+       "description": "Efeitos"
+      }
+     ],
+     "isECVideo": 1
+    },
+    {
+     "id": "7000000000000000002",
+     "desc": "ANUNCIO TT4B de teste",
+     "createTime": 1793796481,
+     "CategoryType": 110,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000001",
+      "uniqueId": "criador1",
+      "nickname": "Criador 1",
+      "secUid": "MS4w-fixture-0",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7622433066561374984",
+      "title": "som original",
+      "authorName": "' 𝐋ia",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 59400,
+      "commentCount": 5212,
+      "diggCount": 1300000,
+      "playCount": 4700000,
+      "shareCount": 77400
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000001",
+      "duration": 17,
+      "width": 576,
+      "height": 1024,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste001",
+       "UrlKey": "v0teste001_h264_540p_387619",
+       "DataSize": 856010,
+       "Width": 576,
+       "Height": 1024,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+       ]
+      }
+     },
+     "anchors": [
+      {
+       "id": "1000006",
+       "type": 28,
+       "keyword": "Efeito 6",
+       "description": "Efeitos"
+      }
+     ],
+     "isTT4BAds": true
+    },
+    {
+     "id": "7700000000000000008",
+     "desc": "Vídeo de teste 8 #fyp #foryou",
+     "createTime": 1792347803,
+     "CategoryType": 105,
+     "isAd": false,
+     "author": {
+      "id": "7100000000000000008",
+      "uniqueId": "criador8",
+      "nickname": "Criador 8",
+      "secUid": "MS4w-fixture-7",
+      "verified": false,
+      "isADVirtual": false
+     },
+     "music": {
+      "id": "7200000000000000008",
+      "title": "som original",
+      "authorName": "Som 8",
+      "original": true
+     },
+     "stats": {
+      "collectCount": 1898,
+      "commentCount": 310,
+      "diggCount": 84900,
+      "playCount": 400100,
+      "shareCount": 515
+     },
+     "item_control": {
+      "can_repost": true
+     },
+     "video": {
+      "id": "7700000000000000008",
+      "duration": 33,
+      "width": 576,
+      "height": 1024,
+      "ratio": "540p",
+      "format": "mp4",
+      "definition": "540p",
+      "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000008&v=play_h264_540",
+      "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000008&v=marca",
+      "bitrateInfo": [
+       {
+        "GearName": "adapt_lowest_1080_1",
+        "CodecType": "h265_hvc1",
+        "Bitrate": 861819,
+        "PlayAddr": {
+         "Width": 1080,
+         "Height": 1920,
+         "DataSize": 585391,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000008&v=hevc_1080"
+         ]
+        }
+       },
+       {
+        "GearName": "adapt_lower_720_1",
+        "CodecType": "h264",
+        "Bitrate": 623773,
+        "PlayAddr": {
+         "Width": 720,
+         "Height": 1280,
+         "DataSize": 423698,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000008&v=h264_720"
+         ]
+        }
+       },
+       {
+        "GearName": "lowest_540_0",
+        "CodecType": "h264",
+        "Bitrate": 466220,
+        "PlayAddr": {
+         "Width": 576,
+         "Height": 1024,
+         "DataSize": 316680,
+         "UrlList": [
+          "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000008&v=h264_540"
+         ]
+        }
+       }
+      ],
+      "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000008",
+      "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000008&o=1",
+      "PlayAddrStruct": {
+       "Uri": "v0teste006",
+       "UrlKey": "v0teste006_h264_540p_458342",
+       "DataSize": 1940337,
+       "Width": 576,
+       "Height": 1024,
+       "UrlList": [
+        "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000008&v=play_h264_540"
+       ]
+      }
+     }
+    }
+   ],
+   "log_pb": {
+    "impr_id": "fixture"
+   },
+   "statusCode": 0,
+   "status_code": 0,
+   "status_msg": ""
+  }
+ ],
+ "preload": {
+  "extra": {
+   "fatal_item_ids": [],
+   "logid": "fixture",
+   "now": 1794430560000
+  },
+  "hasMore": true,
+  "itemList": [
+   {
+    "id": "7700000000000000001",
+    "desc": "Vídeo de teste 1 #fyp #foryou",
+    "createTime": 1793796481,
+    "CategoryType": 110,
+    "isAd": false,
+    "author": {
+     "id": "7100000000000000001",
+     "uniqueId": "criador1",
+     "nickname": "Criador 1",
+     "secUid": "MS4w-fixture-0",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7200000000000000011",
+     "title": "som original",
+     "authorName": "Som 11",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 59400,
+     "commentCount": 5212,
+     "diggCount": 1300000,
+     "playCount": 4700000,
+     "shareCount": 77400
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000001",
+     "duration": 17,
+     "width": 576,
+     "height": 1024,
+     "ratio": "540p",
+     "format": "mp4",
+     "definition": "540p",
+     "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+     "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+     "bitrateInfo": [
+      {
+       "GearName": "adapt_lowest_1080_1",
+       "CodecType": "h265_hvc1",
+       "Bitrate": 861819,
+       "PlayAddr": {
+        "Width": 1080,
+        "Height": 1920,
+        "DataSize": 585391,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+        ]
+       }
+      },
+      {
+       "GearName": "adapt_lower_720_1",
+       "CodecType": "h264",
+       "Bitrate": 623773,
+       "PlayAddr": {
+        "Width": 720,
+        "Height": 1280,
+        "DataSize": 423698,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+        ]
+       }
+      },
+      {
+       "GearName": "lowest_540_0",
+       "CodecType": "h264",
+       "Bitrate": 466220,
+       "PlayAddr": {
+        "Width": 576,
+        "Height": 1024,
+        "DataSize": 316680,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+        ]
+       }
+      }
+     ],
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+     "PlayAddrStruct": {
+      "Uri": "v0teste001",
+      "UrlKey": "v0teste001_h264_540p_387619",
+      "DataSize": 856010,
+      "Width": 576,
+      "Height": 1024,
+      "UrlList": [
+       "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+      ]
+     }
+    },
+    "anchors": [
+     {
+      "id": "1000009",
+      "type": 28,
+      "keyword": "Efeito 9",
+      "description": "Efeitos"
+     }
+    ]
+   },
+   {
+    "id": "7700000000000000002",
+    "desc": "Vídeo de teste 2 #fyp #foryou",
+    "createTime": 1793580320,
+    "CategoryType": 120,
+    "isAd": false,
+    "author": {
+     "id": "7100000000000000002",
+     "uniqueId": "criador2",
+     "nickname": "Criador 2",
+     "secUid": "MS4w-fixture-1",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7200000000000000012",
+     "title": "original sound - 愛Jehnz1e",
+     "authorName": "Som 12",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 2593,
+     "commentCount": 319,
+     "diggCount": 125600,
+     "playCount": 569300,
+     "shareCount": 4456
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000002",
+     "duration": 0,
+     "width": 0,
+     "height": 0,
+     "ratio": "",
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000002",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000002&o=1"
+    },
+    "imagePost": {
+     "images": [
+      {
+       "imageWidth": 1282,
+       "imageHeight": 2282,
+       "imageURL": {
+        "urlList": [
+         "https://p16-common-sign.tiktokcdn.com/teste/foto.jpeg?item=7700000000000000002&n=0"
+        ]
+       }
+      },
+      {
+       "imageWidth": 1284,
+       "imageHeight": 2044,
+       "imageURL": {
+        "urlList": [
+         "https://p16-common-sign.tiktokcdn.com/teste/foto.jpeg?item=7700000000000000002&n=1"
+        ]
+       }
+      }
+     ],
+     "title": ""
+    }
+   },
+   {
+    "id": "7000000000000000001",
+    "desc": "ANUNCIO de teste",
+    "createTime": 1793796481,
+    "CategoryType": 110,
+    "isAd": true,
+    "author": {
+     "id": "7661731110140937236",
+     "uniqueId": "marca_teste",
+     "nickname": "Marca Teste",
+     "secUid": "MS4w-fixture-0",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7622433066561374984",
+     "title": "som original",
+     "authorName": "' 𝐋ia",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 59400,
+     "commentCount": 5212,
+     "diggCount": 1300000,
+     "playCount": 4700000,
+     "shareCount": 77400
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000001",
+     "duration": 17,
+     "width": 576,
+     "height": 1024,
+     "ratio": "540p",
+     "format": "mp4",
+     "definition": "540p",
+     "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+     "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+     "bitrateInfo": [
+      {
+       "GearName": "adapt_lowest_1080_1",
+       "CodecType": "h265_hvc1",
+       "Bitrate": 861819,
+       "PlayAddr": {
+        "Width": 1080,
+        "Height": 1920,
+        "DataSize": 585391,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+        ]
+       }
+      },
+      {
+       "GearName": "adapt_lower_720_1",
+       "CodecType": "h264",
+       "Bitrate": 623773,
+       "PlayAddr": {
+        "Width": 720,
+        "Height": 1280,
+        "DataSize": 423698,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+        ]
+       }
+      },
+      {
+       "GearName": "lowest_540_0",
+       "CodecType": "h264",
+       "Bitrate": 466220,
+       "PlayAddr": {
+        "Width": 576,
+        "Height": 1024,
+        "DataSize": 316680,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+        ]
+       }
+      }
+     ],
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+     "PlayAddrStruct": {
+      "Uri": "v0teste001",
+      "UrlKey": "v0teste001_h264_540p_387619",
+      "DataSize": 856010,
+      "Width": 576,
+      "Height": 1024,
+      "UrlList": [
+       "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+      ]
+     }
+    },
+    "anchors": [
+     {
+      "id": "1000010",
+      "type": 28,
+      "keyword": "Efeito 10",
+      "description": "Efeitos"
+     }
+    ],
+    "ad_info": {
+     "ad_id": 1
+    }
+   }
+  ],
+  "log_pb": {
+   "impr_id": "fixture"
+  },
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": ""
+ },
+ "following": {
+  "extra": {
+   "fatal_item_ids": [],
+   "logid": "fixture",
+   "now": 1794430560000
+  },
+  "hasMore": true,
+  "itemList": [
+   {
+    "id": "7700000000000000009",
+    "desc": "Vídeo de teste 9 #fyp #foryou",
+    "createTime": 1793208121,
+    "CategoryType": 101,
+    "isAd": false,
+    "author": {
+     "id": "7100000000000000009",
+     "uniqueId": "criador9",
+     "nickname": "Criador 9",
+     "secUid": "MS4w-fixture-8",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7200000000000000009",
+     "title": "som original - Mazzinghy",
+     "authorName": "Som 9",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 1060,
+     "commentCount": 56,
+     "diggCount": 8278,
+     "playCount": 21000,
+     "shareCount": 210
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000009",
+     "duration": 60,
+     "width": 1920,
+     "height": 1080,
+     "ratio": "1080p",
+     "format": "mp4",
+     "definition": "1080p",
+     "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000009&v=play_h264_540",
+     "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000009&v=marca",
+     "bitrateInfo": [
+      {
+       "GearName": "adapt_lowest_1080_1",
+       "CodecType": "h265_hvc1",
+       "Bitrate": 861819,
+       "PlayAddr": {
+        "Width": 1080,
+        "Height": 1920,
+        "DataSize": 585391,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000009&v=hevc_1080"
+        ]
+       }
+      },
+      {
+       "GearName": "adapt_lower_720_1",
+       "CodecType": "h264",
+       "Bitrate": 623773,
+       "PlayAddr": {
+        "Width": 720,
+        "Height": 1280,
+        "DataSize": 423698,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000009&v=h264_720"
+        ]
+       }
+      },
+      {
+       "GearName": "lowest_540_0",
+       "CodecType": "h264",
+       "Bitrate": 466220,
+       "PlayAddr": {
+        "Width": 576,
+        "Height": 1024,
+        "DataSize": 316680,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000009&v=h264_540"
+        ]
+       }
+      }
+     ],
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000009",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000009&o=1",
+     "PlayAddrStruct": {
+      "Uri": "v0teste007",
+      "UrlKey": "v0teste007_h264_1080p_490878",
+      "DataSize": 3683674,
+      "Width": 1920,
+      "Height": 1080,
+      "UrlList": [
+       "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000009&v=play_h264_540"
+      ]
+     }
+    },
+    "anchors": [
+     {
+      "id": "1000007",
+      "type": 54,
+      "keyword": "Efeito 7",
+      "description": "CapCut · Video Editor"
+     }
+    ]
+   },
+   {
+    "id": "7000000000000000003",
+    "desc": "LIVE de teste",
+    "createTime": 1793796481,
+    "CategoryType": 110,
+    "isAd": false,
+    "author": {
+     "id": "7100000000000000001",
+     "uniqueId": "criador1",
+     "nickname": "Criador 1",
+     "secUid": "MS4w-fixture-0",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7622433066561374984",
+     "title": "som original",
+     "authorName": "' 𝐋ia",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 59400,
+     "commentCount": 5212,
+     "diggCount": 1300000,
+     "playCount": 4700000,
+     "shareCount": 77400
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000001",
+     "duration": 17,
+     "width": 576,
+     "height": 1024,
+     "ratio": "540p",
+     "format": "mp4",
+     "definition": "540p",
+     "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+     "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+     "bitrateInfo": [
+      {
+       "GearName": "adapt_lowest_1080_1",
+       "CodecType": "h265_hvc1",
+       "Bitrate": 861819,
+       "PlayAddr": {
+        "Width": 1080,
+        "Height": 1920,
+        "DataSize": 585391,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+        ]
+       }
+      },
+      {
+       "GearName": "adapt_lower_720_1",
+       "CodecType": "h264",
+       "Bitrate": 623773,
+       "PlayAddr": {
+        "Width": 720,
+        "Height": 1280,
+        "DataSize": 423698,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+        ]
+       }
+      },
+      {
+       "GearName": "lowest_540_0",
+       "CodecType": "h264",
+       "Bitrate": 466220,
+       "PlayAddr": {
+        "Width": 576,
+        "Height": 1024,
+        "DataSize": 316680,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+        ]
+       }
+      }
+     ],
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+     "PlayAddrStruct": {
+      "Uri": "v0teste001",
+      "UrlKey": "v0teste001_h264_540p_387619",
+      "DataSize": 856010,
+      "Width": 576,
+      "Height": 1024,
+      "UrlList": [
+       "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+      ]
+     }
+    },
+    "anchors": [
+     {
+      "id": "1000008",
+      "type": 28,
+      "keyword": "Efeito 8",
+      "description": "Efeitos"
+     }
+    ],
+    "containerType": 2,
+    "liveRoomInfo": {
+     "roomID": "7300000000000000003",
+     "title": "ao vivo",
+     "status": 2,
+     "liveUrl": ""
+    }
+   },
+   {
+    "id": "7700000000000000004",
+    "desc": "Vídeo de teste 4 #fyp #foryou",
+    "createTime": 1793707382,
+    "CategoryType": 120,
+    "isAd": false,
+    "author": {
+     "id": "7100000000000000004",
+     "uniqueId": "criador4",
+     "nickname": "Criador 4",
+     "secUid": "MS4w-fixture-3",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7200000000000000010",
+     "title": "som original",
+     "authorName": "Som 10",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 2730,
+     "commentCount": 122,
+     "diggCount": 78100,
+     "playCount": 535600,
+     "shareCount": 4665
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000004",
+     "duration": 60,
+     "width": 576,
+     "height": 720,
+     "ratio": "540p",
+     "format": "mp4",
+     "definition": "540p",
+     "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=play_h264_540",
+     "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=marca",
+     "bitrateInfo": [
+      {
+       "GearName": "adapt_lowest_1080_1",
+       "CodecType": "h265_hvc1",
+       "Bitrate": 861819,
+       "PlayAddr": {
+        "Width": 1080,
+        "Height": 1920,
+        "DataSize": 585391,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=hevc_1080"
+        ]
+       }
+      },
+      {
+       "GearName": "adapt_lower_720_1",
+       "CodecType": "h264",
+       "Bitrate": 623773,
+       "PlayAddr": {
+        "Width": 720,
+        "Height": 1280,
+        "DataSize": 423698,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=h264_720"
+        ]
+       }
+      },
+      {
+       "GearName": "lowest_540_0",
+       "CodecType": "h264",
+       "Bitrate": 466220,
+       "PlayAddr": {
+        "Width": 576,
+        "Height": 1024,
+        "DataSize": 316680,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=h264_540"
+        ]
+       }
+      }
+     ],
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000004",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000004&o=1",
+     "PlayAddrStruct": {
+      "Uri": "v0teste003",
+      "UrlKey": "v0teste003_h264_540p_627960",
+      "DataSize": 4732935,
+      "Width": 576,
+      "Height": 720,
+      "UrlList": [
+       "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=play_h264_540"
+      ]
+     }
+    }
+   }
+  ],
+  "log_pb": {
+   "impr_id": "fixture"
+  },
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": ""
+ },
+ "escape": {
+  "extra": {
+   "fatal_item_ids": [],
+   "logid": "fixture",
+   "now": 1794430560000
+  },
+  "hasMore": true,
+  "itemList": [
+   {
+    "id": "7000000000000000001",
+    "desc": "ANUNCIO de teste",
+    "createTime": 1793796481,
+    "CategoryType": 110,
+    "isAd": true,
+    "author": {
+     "id": "7661731110140937236",
+     "uniqueId": "marca_teste",
+     "nickname": "Marca Teste",
+     "secUid": "MS4w-fixture-0",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7622433066561374984",
+     "title": "som original",
+     "authorName": "' 𝐋ia",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 59400,
+     "commentCount": 5212,
+     "diggCount": 1300000,
+     "playCount": 4700000,
+     "shareCount": 77400
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000001",
+     "duration": 17,
+     "width": 576,
+     "height": 1024,
+     "ratio": "540p",
+     "format": "mp4",
+     "definition": "540p",
+     "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+     "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+     "bitrateInfo": [
+      {
+       "GearName": "adapt_lowest_1080_1",
+       "CodecType": "h265_hvc1",
+       "Bitrate": 861819,
+       "PlayAddr": {
+        "Width": 1080,
+        "Height": 1920,
+        "DataSize": 585391,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+        ]
+       }
+      },
+      {
+       "GearName": "adapt_lower_720_1",
+       "CodecType": "h264",
+       "Bitrate": 623773,
+       "PlayAddr": {
+        "Width": 720,
+        "Height": 1280,
+        "DataSize": 423698,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+        ]
+       }
+      },
+      {
+       "GearName": "lowest_540_0",
+       "CodecType": "h264",
+       "Bitrate": 466220,
+       "PlayAddr": {
+        "Width": 576,
+        "Height": 1024,
+        "DataSize": 316680,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+        ]
+       }
+      }
+     ],
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+     "PlayAddrStruct": {
+      "Uri": "v0teste001",
+      "UrlKey": "v0teste001_h264_540p_387619",
+      "DataSize": 856010,
+      "Width": 576,
+      "Height": 1024,
+      "UrlList": [
+       "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+      ]
+     }
+    },
+    "anchors": [
+     {
+      "id": "1000011",
+      "type": 28,
+      "keyword": "Efeito 11",
+      "description": "Efeitos"
+     }
+    ],
+    "ad_info": {
+     "ad_id": 1
+    }
+   },
+   {
+    "id": "7000000000000000005",
+    "desc": "LOJA de teste (isECVideo)",
+    "createTime": 1793796481,
+    "CategoryType": 110,
+    "isAd": false,
+    "author": {
+     "id": "7100000000000000001",
+     "uniqueId": "criador1",
+     "nickname": "Criador 1",
+     "secUid": "MS4w-fixture-0",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7622433066561374984",
+     "title": "som original",
+     "authorName": "' 𝐋ia",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 59400,
+     "commentCount": 5212,
+     "diggCount": 1300000,
+     "playCount": 4700000,
+     "shareCount": 77400
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000001",
+     "duration": 17,
+     "width": 576,
+     "height": 1024,
+     "ratio": "540p",
+     "format": "mp4",
+     "definition": "540p",
+     "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540",
+     "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=marca",
+     "bitrateInfo": [
+      {
+       "GearName": "adapt_lowest_1080_1",
+       "CodecType": "h265_hvc1",
+       "Bitrate": 861819,
+       "PlayAddr": {
+        "Width": 1080,
+        "Height": 1920,
+        "DataSize": 585391,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=hevc_1080"
+        ]
+       }
+      },
+      {
+       "GearName": "adapt_lower_720_1",
+       "CodecType": "h264",
+       "Bitrate": 623773,
+       "PlayAddr": {
+        "Width": 720,
+        "Height": 1280,
+        "DataSize": 423698,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_720"
+        ]
+       }
+      },
+      {
+       "GearName": "lowest_540_0",
+       "CodecType": "h264",
+       "Bitrate": 466220,
+       "PlayAddr": {
+        "Width": 576,
+        "Height": 1024,
+        "DataSize": 316680,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=h264_540"
+        ]
+       }
+      }
+     ],
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000001&o=1",
+     "PlayAddrStruct": {
+      "Uri": "v0teste001",
+      "UrlKey": "v0teste001_h264_540p_387619",
+      "DataSize": 856010,
+      "Width": 576,
+      "Height": 1024,
+      "UrlList": [
+       "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000001&v=play_h264_540"
+      ]
+     }
+    },
+    "anchors": [
+     {
+      "id": "1000012",
+      "type": 28,
+      "keyword": "Efeito 12",
+      "description": "Efeitos"
+     }
+    ],
+    "isECVideo": 1
+   },
+   {
+    "id": "7700000000000000003",
+    "desc": "Vídeo de teste 3 #fyp #foryou",
+    "createTime": 1793667802,
+    "CategoryType": 100,
+    "isAd": false,
+    "author": {
+     "id": "7100000000000000003",
+     "uniqueId": "criador3",
+     "nickname": "Criador 3",
+     "secUid": "MS4w-fixture-2",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7200000000000000013",
+     "title": "som original",
+     "authorName": "Som 13",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 9698,
+     "commentCount": 447,
+     "diggCount": 143200,
+     "playCount": 944000,
+     "shareCount": 3266
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000003",
+     "duration": 321,
+     "width": 1024,
+     "height": 576,
+     "ratio": "540p",
+     "format": "mp4",
+     "definition": "540p",
+     "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=play_h264_540",
+     "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=marca",
+     "bitrateInfo": [
+      {
+       "GearName": "adapt_lowest_1080_1",
+       "CodecType": "h265_hvc1",
+       "Bitrate": 861819,
+       "PlayAddr": {
+        "Width": 1080,
+        "Height": 1920,
+        "DataSize": 585391,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=hevc_1080"
+        ]
+       }
+      },
+      {
+       "GearName": "adapt_lower_720_1",
+       "CodecType": "h264",
+       "Bitrate": 623773,
+       "PlayAddr": {
+        "Width": 720,
+        "Height": 1280,
+        "DataSize": 423698,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=h264_720"
+        ]
+       }
+      },
+      {
+       "GearName": "lowest_540_0",
+       "CodecType": "h264",
+       "Bitrate": 466220,
+       "PlayAddr": {
+        "Width": 576,
+        "Height": 1024,
+        "DataSize": 316680,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=h264_540"
+        ]
+       }
+      }
+     ],
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000003",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000003&o=1",
+     "PlayAddrStruct": {
+      "Uri": "v0teste002",
+      "UrlKey": "v0teste002_h264_540p_170053",
+      "DataSize": 6831209,
+      "Width": 1024,
+      "Height": 576,
+      "UrlList": [
+       "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000003&v=play_h264_540"
+      ]
+     }
+    }
+   },
+   {
+    "id": "7700000000000000004",
+    "desc": "Vídeo de teste 4 #fyp #foryou",
+    "createTime": 1793707382,
+    "CategoryType": 120,
+    "isAd": false,
+    "author": {
+     "id": "7100000000000000004",
+     "uniqueId": "criador4",
+     "nickname": "Criador 4",
+     "secUid": "MS4w-fixture-3",
+     "verified": false,
+     "isADVirtual": false
+    },
+    "music": {
+     "id": "7200000000000000014",
+     "title": "som original",
+     "authorName": "Som 14",
+     "original": true
+    },
+    "stats": {
+     "collectCount": 2730,
+     "commentCount": 122,
+     "diggCount": 78100,
+     "playCount": 535600,
+     "shareCount": 4665
+    },
+    "item_control": {
+     "can_repost": true
+    },
+    "video": {
+     "id": "7700000000000000004",
+     "duration": 60,
+     "width": 576,
+     "height": 720,
+     "ratio": "540p",
+     "format": "mp4",
+     "definition": "540p",
+     "playAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=play_h264_540",
+     "downloadAddr": "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=marca",
+     "bitrateInfo": [
+      {
+       "GearName": "adapt_lowest_1080_1",
+       "CodecType": "h265_hvc1",
+       "Bitrate": 861819,
+       "PlayAddr": {
+        "Width": 1080,
+        "Height": 1920,
+        "DataSize": 585391,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=hevc_1080"
+        ]
+       }
+      },
+      {
+       "GearName": "adapt_lower_720_1",
+       "CodecType": "h264",
+       "Bitrate": 623773,
+       "PlayAddr": {
+        "Width": 720,
+        "Height": 1280,
+        "DataSize": 423698,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=h264_720"
+        ]
+       }
+      },
+      {
+       "GearName": "lowest_540_0",
+       "CodecType": "h264",
+       "Bitrate": 466220,
+       "PlayAddr": {
+        "Width": 576,
+        "Height": 1024,
+        "DataSize": 316680,
+        "UrlList": [
+         "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=h264_540"
+        ]
+       }
+      }
+     ],
+     "cover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000004",
+     "originCover": "https://p16-common-sign.tiktokcdn.com/teste/capa.jpeg?item=7700000000000000004&o=1",
+     "PlayAddrStruct": {
+      "Uri": "v0teste003",
+      "UrlKey": "v0teste003_h264_540p_627960",
+      "DataSize": 4732935,
+      "Width": 576,
+      "Height": 720,
+      "UrlList": [
+       "https://v16-webapp-prime.tiktok.com/video/tos/teste/?item=7700000000000000004&v=play_h264_540"
+      ]
+     }
+    }
+   }
+  ],
+  "log_pb": {
+   "impr_id": "fixture"
+  },
+  "statusCode": 0,
+  "status_code": 0,
+  "status_msg": ""
+ },
+ "sinteticos": {
+  "anuncio": "7000000000000000001",
+  "anuncioTT4B": "7000000000000000002",
+  "live": "7000000000000000003",
+  "loja": "7000000000000000004",
+  "lojaEC": "7000000000000000005"
+ }
+}

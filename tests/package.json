@@ -1,0 +1,1 @@
+{"name":"testes-brasa","private":true,"type":"module","description":"Testes locais da Brasa (não vão para o zip)","dependencies":{"playwright":"1.63.0"}}
