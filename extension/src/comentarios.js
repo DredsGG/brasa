@@ -5,6 +5,8 @@
 // (div --ButtonActionItemV1); abrir troca a URL para /@perfil/video/<id> sem sair do feed (o core trata como Para você);
 // o painel --DivCommentSidebarTransitionWrapper (384 px à direita) empurra o vídeo e as setas para a esquerda e fica aberto
 // ao passar de vídeo (a URL acompanha); clicar de novo no ícone fecha e a URL volta a /foryou.
+// v1.0.1: na PÁGINA DE UM VÍDEO (link aberto direto: abas "Comentários | Você pode gostar", que abre em "Você pode gostar") troca a
+// aba para Comentários pelo próprio botão do site; se a PESSOA clicar em "Você pode gostar", fica lá até ela sair daquele vídeo.
 (() => {
   'use strict';
   const M = globalThis.BRASA_MENU;
@@ -36,6 +38,32 @@
   let pessoaFechou = false, desde = 0, tentativas = 0, ultima = 0, chaveTent = null;
   const zerar = () => { pessoaFechou = false; desde = 0; tentativas = 0; ultima = 0; };
   const FECHAR = /fechar|close|cerrar|exit|sair|salir/i; // X do painel medido: <button aria-label="exit"> no alto à direita
+  // página de um vídeo: a aba "Você pode gostar" escolhida pela pessoa vale para aquele vídeo
+  let relEscolhido = null, abaVid = null, abaTent = 0, abaUltima = 0, abaDesde = 0;
+  const vidAtual = () => (BRASA.idDaUrl && BRASA.idDaUrl(location.pathname)) || location.pathname;
+  const onCliqueAba = (e) => {
+    if (!e.isTrusted || !BRASA.abasVideo) return;
+    const b = e.target && e.target.closest && e.target.closest('button[data-testid="tux-web-tab-bar"]');
+    const av = b && BRASA.abasVideo();
+    if (!av) return;
+    if (b === av.rel) relEscolhido = vidAtual(); else if (b === av.coment) relEscolhido = null;
+  };
+  document.addEventListener('click', onCliqueAba, true);
+  function cuidarDasAbas(av) {
+    const vid = vidAtual();
+    if (vid !== abaVid) { abaVid = vid; abaTent = 0; abaDesde = 0; }
+    if (relEscolhido && relEscolhido !== vid) relEscolhido = null; // saiu daquele vídeo
+    if (av.ativa === 'coment') { abaTent = 0; return porque('aba-comentarios'); }
+    if (relEscolhido === vid) return porque('pessoa-escolheu-relacionados');
+    // só troca quando é certo que "Você pode gostar" está aberta (no quadro do modo navegador a 2ª aba é "Vídeos do Criador": não mexe)
+    if (av.ativa !== 'rel') return porque('aba-outra');
+    if (abaTent >= 3) return porque('aba-desistiu');
+    if (!abaDesde) abaDesde = Date.now();
+    if (Date.now() - abaDesde < 800 || Date.now() - abaUltima < 2500) return porque('aba-esperando');
+    abaTent++; abaUltima = Date.now();
+    porque('trocou-aba-' + abaTent);
+    av.coment.click();
+  }
   const onClique = (e) => {
     if (!e.isTrusted || !painelAberto()) return;
     const t = e.target && e.target.closest ? e.target : null;
@@ -58,11 +86,13 @@
   const porque = (x) => { if (x !== ultimoPorque) { ultimoPorque = x; try { document.documentElement.setAttribute('data-brasa-coment', x); } catch (_) {} } };
   const tick = setInterval(() => {
     if (BRASA.dead) return;
-    if (pessoaFechou) return porque('pessoa-fechou');
     if (!BRASA.ativo() || !BRASA.S.coment) return porque('desligado');
-    if (!BRASA.ehFeed()) return porque('pagina-' + BRASA.page.kind);
     if (document.hidden) return porque('aba-escondida');
     if (BRASA.menu && BRASA.menu.aberto) return porque('menu-aberto');
+    const av = BRASA.abasVideo && BRASA.abasVideo();
+    if (av) return cuidarDasAbas(av); // página de um vídeo (feed ou link aberto direto): a aba da direita
+    if (pessoaFechou) return porque('pessoa-fechou');
+    if (!BRASA.ehFeed()) return porque('pagina-' + BRASA.page.kind);
     if (painelAberto()) { tentativas = 0; desde = 0; return porque('aberto'); }
     const a = artigoDaTela();
     // até 3 tentativas por vídeo: se o site não deixou abrir (ex.: redesenhando o feed), tenta de novo no próximo vídeo
@@ -84,5 +114,5 @@
     BRASA.on('nav', (d) => { if (d.mudouTipo) { zerar(); chaveTent = null; } }), // trocou de página (ex.: Para você → Seguindo): abre de novo
     BRASA.on('settings', (m) => { if (m.coment === true) zerar(); }),
   ];
-  BRASA.onStop(() => { clearInterval(tick); offs.forEach((f) => f()); document.removeEventListener('click', onClique, true); document.removeEventListener('keydown', onTecla, true); });
+  BRASA.onStop(() => { clearInterval(tick); offs.forEach((f) => f()); document.removeEventListener('click', onClique, true); document.removeEventListener('click', onCliqueAba, true); document.removeEventListener('keydown', onTecla, true); });
 })();

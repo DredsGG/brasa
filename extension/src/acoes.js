@@ -15,6 +15,7 @@
   background:rgba(0,0,0,.55);border:1.5px solid #fe2c55;box-shadow:0 2px 10px rgba(0,0,0,.3);z-index:20;font-family:TikTokFont,Arial,sans-serif}
 .${CLS}.sobre{position:absolute;left:50%;bottom:calc(100% + 16px);transform:translateX(-50%)}
 .${CLS}.solta{position:fixed;right:22px;top:96px}
+.${CLS}.quadro{position:absolute;z-index:30}
 .${CLS} .brasa-marca{display:flex;align-items:center;justify-content:center;width:20px;height:20px;color:#fe2c55}
 .${CLS} .brasa-marca svg{width:18px;height:18px}
 .${CLS} .brasa-item{display:flex;flex-direction:column;align-items:center;gap:3px}
@@ -33,14 +34,44 @@
   }
   // onde a cápsula mora: o contêiner comum das setas do feed
   function ancora() {
-    const prox = document.querySelector('[data-e2e="feed-navigation-next"]'), ant = document.querySelector('[data-e2e="feed-navigation-prev"]');
+    // feed: feed-navigation-*; modo navegador (vídeo aberto de perfil/Explorar/busca, v1.0.2): arrow-right/arrow-left
+    const vis = (e) => !!e && e.getBoundingClientRect().width > 0;
+    const quadro = !!camadaDoQuadro(); // o quadro cobre a página: as setas dele valem
+    const prox = quadro ? document.querySelector('[data-e2e="arrow-right"]') : [document.querySelector('[data-e2e="feed-navigation-next"]')].find(vis);
+    const ant = quadro ? document.querySelector('[data-e2e="arrow-left"]') : [document.querySelector('[data-e2e="feed-navigation-prev"]')].find(vis);
     if (!prox) return null;
     let a = prox.parentElement;
     while (a && ant && !a.contains(ant)) a = a.parentElement;
     return a || prox.parentElement;
   }
+  // v1.0.2 · modo navegador: o contêiner das setas do quadro corta o que sai dele (medido ao vivo: o bloco ficava invisível),
+  // então o bloco mora na camada fixa do quadro e fica posicionado logo acima das setas, na mesma coluna
+  function camadaDoQuadro() {
+    const x = document.querySelector('[data-e2e="browse-close"]');
+    if (!x || !(x.getBoundingClientRect().width > 0)) return null; // só com o quadro aberto (o fechar visível)
+    for (let n = x.parentElement; n && n !== document.body; n = n.parentElement) if (getComputedStyle(n).position === 'fixed') return n;
+    return null;
+  }
+  function posicionarNoQuadro(c, camada) {
+    const setas = ['arrow-left', 'arrow-right'].map((k) => document.querySelector(`[data-e2e="${k}"]`)).filter((e) => e && e.getBoundingClientRect().width > 0);
+    if (!setas.length) return;
+    const R = camada.getBoundingClientRect(), topo = Math.min(...setas.map((e) => e.getBoundingClientRect().top)), s = setas[setas.length - 1].getBoundingClientRect();
+    const left = Math.round(s.left + s.width / 2 - R.left - 24), bottom = Math.round(R.bottom - topo + 16);
+    if (c.style.left !== left + 'px') c.style.left = left + 'px';
+    if (c.style.bottom !== bottom + 'px') c.style.bottom = bottom + 'px';
+  }
   function caixa(criar) {
     let c = document.querySelector('.' + CLS);
+    const camada = camadaDoQuadro();
+    if (camada) {
+      if (!(c && c.isConnected) && criar && document.body) { c = novaCaixa(); }
+      if (!c || !c.isConnected && !criar) return null;
+      if (c.parentElement !== camada) camada.appendChild(c);
+      if (c.className !== CLS + ' quadro') { c.className = CLS + ' quadro'; c.style.top = ''; }
+      posicionarNoQuadro(c, camada);
+      return c;
+    }
+    if (c && c.classList.contains('quadro')) { c.style.left = c.style.bottom = ''; c.remove(); c = null; } // o quadro fechou
     const a = ancora();
     if (c && c.isConnected) {
       // reposiciona se as setas apareceram/sumiram (navegação interna)
@@ -49,10 +80,14 @@
       return c;
     }
     if (!criar || !document.body) return null;
-    c = document.createElement('div');
+    c = novaCaixa();
+    if (a) { prepara(a); c.className = CLS + ' sobre'; a.appendChild(c); } else { c.className = CLS + ' solta'; document.body.appendChild(c); }
+    return c;
+  }
+  function novaCaixa() {
+    const c = document.createElement('div');
     c.innerHTML = `<span class="brasa-marca" title="Brasa">${ICO.app}</span>`;
     for (const ev of ['pointerdown', 'mousedown', 'mouseup', 'click', 'dblclick', 'wheel', 'keydown']) c.addEventListener(ev, (e) => e.stopPropagation());
-    if (a) { prepara(a); c.className = CLS + ' sobre'; a.appendChild(c); } else { c.className = CLS + ' solta'; document.body.appendChild(c); }
     return c;
   }
   const prepara = (a) => { if (getComputedStyle(a).position === 'static') a.style.position = 'relative'; };

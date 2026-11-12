@@ -23,6 +23,8 @@
     conta: true,
     // v0.6.5 · Auto curtir e Auto seguir (pedido do André; desligados de fábrica, só clicam no que ainda não foi feito)
     autoCurtir: false, autoSeguir: false,
+    // v1.0.1 · entrada direta que cai num vídeo solto ("Você pode gostar"): vai para o Para você
+    paraVoce: true,
   };
   // storage.local (prefixo br.)
   const K = {
@@ -42,7 +44,8 @@
     fogDia: 'br.fog.dia', // estado do dia: { dia, rodadas, enviadas, convs: { [id]: { res, motivo, em, frase } } }
     fogUltima: 'br.fog.ultima', // última frase mandada em cada conversa (para não repetir no dia seguinte)
     fogRun: 'br.fog.run', // rodada em andamento: { inicio, ensaio, janela, aba, fila, i, pulso }
-        contador: 'br.contador', // modo foco: { dia: 'AAAA-MM-DD', anuncio, live, loja, ids: [] } (ids só do dia, para não contar duas vezes)
+        urlsFeed: 'br.urlsFeed', // v1.0.1: { [idDoVideo]: quando } — vídeos cuja URL /@x/video/id a Brasa viu NO FEED (comentários abertos); 300 mais novos
+    contador: 'br.contador', // modo foco: { dia: 'AAAA-MM-DD', anuncio, live, loja, ids: [] } (ids só do dia, para não contar duas vezes)
   };
   const LOG_MAX = 300;
   // Uma fila por contexto (página, popup ou fundo); entre abas pode sobrar uma corrida rara, sem perigo (é só registro).

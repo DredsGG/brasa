@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Brasa",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "default_locale": "en",
   "description": "__MSG_appDesc__",
   "icons": {
@@ -60,7 +60,7 @@
         "src/guarda.js",
         "src/acoes.js",
         "src/baixar.js",
-        "src/auto.js", "src/engaja.js", "src/comentarios.js"
+        "src/auto.js", "src/engaja.js", "src/entrada.js", "src/comentarios.js"
       ],
       "run_at": "document_start"
     }

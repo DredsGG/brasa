@@ -76,6 +76,24 @@ ${semBarra ? '' : `<div class="side" id="side"><a data-e2e="tiktok-logo" href="/
 <div id="opcoes" style="position:fixed;left:260px;top:4px;font-size:10px;background:#222;color:#fff"><div class="row" id="opc-auto"><div><span data-e2e="auto-scroll">↻</span></div><span>Rolagem automática</span></div><div class="row" id="opc-outro"><div><span data-e2e="report-icone">!</span></div><span>Denunciar</span></div><div data-e2e="more-menu-popover_autoscroll" id="mm-auto">Rolagem automática</div></div>
 ${q.get('banner') === '1' ? '<div class="css-9x-7937d88b--DivLiveFloatWrapper e1" id="banner-live" style="position:fixed;right:80px;bottom:20px;width:200px;height:120px;background:#333;color:#fff">LIVE flutuante</div>' : ''}
 <div class="css-c0-7937d88b--DivCommentSidebarTransitionWrapper" id="comentarios" style="display:none;position:fixed;right:0;top:0;bottom:0;width:384px;background:#222;color:#fff"><button type="button" aria-label="exit" id="coment-x" style="position:absolute;right:32px;top:32px;width:28px;height:28px">×</button><section class="css-c1-7937d88b--SectionCommentSidebarContainer" style="height:100%">comentários</section></div>
+<div class="css-rp-7937d88b--RightPanelContainer" id="painel-video" style="display:none;position:fixed;right:0;top:0;bottom:0;width:400px;background:${dark ? '#121212' : '#fff'};color:${dark ? '#fff' : '#000'}">
+  <div data-testid="tux-web-tab-bar" style="display:flex;gap:24px;padding:36px 16px 0"><div class="tux-web-canary tux-interaction-container__ohUjRG_v1_8_0" data-testid="tux-web-tab-bar-container" style="height:40px"><button type="button" class="tux-button__element__ZBq38f_v1_8_0" data-testid="tux-web-tab-bar" id="aba-coment">Comentários</button></div><div class="tux-web-canary tux-interaction-container__ohUjRG_v1_8_0" data-testid="tux-web-tab-bar-container" style="height:40px"><button type="button" class="tux-button__element__ZBq38f_v1_8_0" data-testid="tux-web-tab-bar" id="aba-rel">Você pode gostar</button></div></div>
+  <div class="css-tc-7937d88b--DivTabContainer" id="pv-coment" style="display:none"><div class="css-cm-7937d88b--DivCommentMain"><div class="css-cl-7937d88b--DivCommentListContainer"><div data-e2e="comment-level-1">um comentário</div></div></div></div>
+  <div class="css-rt-7937d88b--DivRelatedTabContainer" id="pv-rel" style="height:600px">grade de vídeos sugeridos</div></div>
+<div id="navegador" style="display:none;position:fixed;inset:0;background:#000;color:#fff;z-index:50">
+  <button type="button" data-e2e="browse-close" role="button" aria-label="Fechar" style="position:absolute;left:20px;top:20px;width:40px;height:40px;z-index:3">X</button>
+  <div id="nv-videos" style="position:absolute;left:0;top:0;width:822px;height:100%;overflow:hidden"></div>
+  <div class="css-sw-7937d88b--DivVideoSwitchWrapper" style="position:absolute;left:762px;top:378px;width:40px;height:96px;overflow:hidden;border-radius:100px;display:flex;flex-direction:column;gap:16px;z-index:2"><!-- medido no código do site: 36x80, overflow hidden -->
+    <button type="button" data-e2e="arrow-left" role="button" aria-label="Ir para o vídeo anterior" style="width:40px;height:40px">^</button>
+    <button type="button" data-e2e="arrow-right" role="button" aria-label="Ir para o próximo vídeo" style="width:40px;height:40px">v</button>
+  </div>
+  <div id="nv-info" style="position:absolute;left:858px;top:20px;right:20px">
+    <div style="display:flex;gap:12px;align-items:center"><span data-e2e="browse-username" id="nv-user"></span><div data-e2e="browse-follow" class="css-bw-7937d88b--DivBtnWrapper" id="nv-follow"></div></div>
+    <div style="display:flex;gap:16px;margin-top:40px"><div role="button" tabindex="0" aria-pressed="false" id="nv-like" class="css-lk-7937d88b--ButtonActionItem"><span data-e2e="browse-like-icon" class="css-li-7937d88b--SpanIconWrapper" style="display:inline-block;width:32px;height:32px;background:#444">L</span><strong data-e2e="browse-like-count">12K</strong></div>
+      <div><span data-e2e="browse-comment-icon" class="css-ci-7937d88b--SpanIconWrapper" style="display:inline-block;width:32px;height:32px;background:#444">C</span></div></div>
+    <div class="css-cl-7937d88b--DivCommentListContainer" style="margin-top:20px;height:400px">comentários</div>
+  </div>
+</div>
 <div class="setas"><button data-e2e="feed-navigation-prev" aria-label="Ir para o vídeo anterior">▲</button><button data-e2e="feed-navigation-next" aria-label="Ir para o próximo vídeo">▼</button></div>
 </div>
 <script>
@@ -200,6 +218,60 @@ ${q.get('banner') === '1' ? '<div class="css-9x-7937d88b--DivLiveFloatWrapper e1
     document.body.appendChild(cu);
   }
   document.getElementById('coment-x').addEventListener('click', () => window.__comentarios(false));
+  // página de um vídeo aberto direto (/@x/video/id), medida 2026-11-12: abas "Comentários | Você pode gostar" (sem aria-selected; a
+  // inativa fica com a cor a 48%), abre em "Você pode gostar"; vídeos da /api/related/item_list/; sem login: 1 vídeo e sem setas
+  M.abas = []; let modoVideo = false;
+  const corAba = (b, on) => { b.style.color = on ? '${dark ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}' : '${dark ? 'rgba(255, 255, 255, 0.48)' : 'rgba(0, 0, 0, 0.48)'}'; };
+  window.__abaVideo = (qual) => {
+    document.getElementById('pv-coment').style.display = qual === 'coment' ? 'block' : 'none';
+    document.getElementById('pv-rel').style.display = qual === 'rel' ? 'block' : 'none';
+    corAba(document.getElementById('aba-coment'), qual === 'coment'); corAba(document.getElementById('aba-rel'), qual === 'rel');
+  };
+  document.getElementById('aba-coment').addEventListener('click', (e) => { M.abas.push({ aba: 'coment', confiavel: e.isTrusted }); window.__abaVideo('coment'); });
+  document.getElementById('aba-rel').addEventListener('click', (e) => { M.abas.push({ aba: 'rel', confiavel: e.isTrusted }); window.__abaVideo('rel'); });
+  const setasEl = document.querySelector('.setas');
+  // modo navegador (vídeo aberto de uma grade: perfil/Explorar/busca), medido 2026-11-12 (ferramentas/medir-navegador.mjs):
+  // o vídeo NÃO repete (no fim ele para), setas arrow-left/right, coração com aria-pressed no elemento de cima, browse-follow
+  M.nav = { proximos: 0, anteriores: 0, fins: 0 };
+  let nvLista = [], nvI = 0, nvOrigem = '/explore';
+  const nvEl = document.getElementById('navegador');
+  function nvMostrar(i) {
+    nvI = Math.max(0, Math.min(nvLista.length - 1, i)); const it = nvLista[nvI];
+    const foto = !!it.imagePost; // carrossel: URL /@x/photo/id e o tocador de fotos do site (código: DivPhotoVideoContainer > DivSwiperContainer > ImgPhotoSlide)
+    history.pushState({}, '', '/@' + it.author.uniqueId + (foto ? '/photo/' : '/video/') + it.id); M.nav.id = it.id; M.nav.foto = foto; (M.nav.mostrados = M.nav.mostrados || []).push({ id: it.id, foto, t: Date.now() });
+    document.getElementById('nv-videos').innerHTML = foto
+      ? '<div class="css-pv-7937d88b--DivPhotoVideoContainer extb1210" style="width:100%;height:100%"><div class="css-sc-7937d88b--DivSwiperContainer" style="width:100%;height:100%">' + it.imagePost.images.map((im) => '<img class="css-is-7937d88b--ImgPhotoSlide" src="' + im.imageURL.urlList[0] + '" style="height:86vh">').join('') + '</div><div class="css-pc-7937d88b--DivPhotoControlContainer">&bull; &bull;</div></div>'
+      : '<div data-e2e="browse-video" class="css-bp-7937d88b--DivBasicPlayerWrapper" style="width:100%;height:100%"><div id="xgwrapper-2-' + it.id + '" class="xgplayer-container"><video src="/media/clip.webm" muted autoplay playsinline style="height:86vh"></video></div></div>';
+    const v = document.querySelector('#nv-videos video'); if (v) { v.addEventListener('ended', () => { M.nav.fins++; }); v.play().catch(() => {}); }
+    document.getElementById('nv-user').textContent = it.author.uniqueId;
+    const seg = it.author.relation === 0;
+    document.getElementById('nv-follow').innerHTML = seg ? '<button type="button" class="css-sf-7937d88b--StyledFollowButtonTux">Seguir</button>' : '<button type="button" class="css-sg-7937d88b--StyledFollowingButtonTux">Seguindo</button>';
+    const fb = document.querySelector('#nv-follow button');
+    fb.addEventListener('click', () => { if (fb.textContent === 'Seguir') { M.seguiu.push(it.author.uniqueId); it.author.relation = 1; document.getElementById('nv-follow').innerHTML = '<button type="button" class="css-sg-7937d88b--StyledFollowingButtonTux">Seguindo</button>'; } else M.deixou.push(it.author.uniqueId); });
+    document.getElementById('nv-like').setAttribute('aria-pressed', String(!!it.digged));
+    document.querySelector('[data-e2e="arrow-left"]').setAttribute('aria-disabled', String(nvI === 0));
+    document.querySelector('[data-e2e="arrow-right"]').setAttribute('aria-disabled', String(nvI >= nvLista.length - 1));
+  }
+  document.getElementById('nv-like').addEventListener('click', () => { const l = document.getElementById('nv-like'), it = nvLista[nvI]; const on = l.getAttribute('aria-pressed') === 'true'; if (on) M.descurtidas.push(it.id); else M.curtidas.push(it.id); it.digged = !on; l.setAttribute('aria-pressed', String(!on)); });
+  document.querySelector('[data-e2e="arrow-right"]').addEventListener('click', () => { if (nvI < nvLista.length - 1) { M.nav.proximos++; nvMostrar(nvI + 1); } });
+  document.querySelector('[data-e2e="arrow-left"]').addEventListener('click', () => { if (nvI > 0) { M.nav.anteriores++; nvMostrar(nvI - 1); } });
+  document.querySelector('[data-e2e="browse-close"]').addEventListener('click', () => { nvEl.style.display = 'none'; document.getElementById('nv-videos').innerHTML = ''; history.pushState({}, '', nvOrigem); M.nav.fechou = true; });
+  async function grade(rota) {
+    const r = await fetch(rota + '?aid=1988'); const j = await r.json(); M.respostas.push({ via: 'fetch-grade', n: (j.itemList || []).length });
+    nvLista = (j.itemList || []).slice(); // vídeos e carrosséis de fotos (como num perfil)
+    col.innerHTML = '<div id="grade" style="display:grid;grid-template-columns:repeat(4,160px);gap:8px">' + nvLista.map((it, i) => '<a href="/@' + it.author.uniqueId + (it.imagePost ? '/photo/' : '/video/') + it.id + '" data-i="' + i + '" style="display:block;height:220px;background:#333;color:#fff">' + it.id.slice(-4) + '</a>').join('') + '</div>';
+    col.querySelectorAll('#grade a').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); nvOrigem = location.pathname; nvEl.style.display = 'block'; nvMostrar(+a.dataset.i); }));
+  }
+  async function paginaDeVideo(id) {
+    modoVideo = true; M.modoVideo = true;
+    document.getElementById('painel-video').style.display = 'block'; document.body.classList.add('pagvideo');
+    window.__abaVideo('rel');
+    const r = await fetch('/api/related/item_list/?aid=1988&itemID=' + id); const j = await r.json(); M.respostas.push({ via: 'fetch-related', n: (j.itemList || []).length });
+    const lista = ${q.get('setas') === '1'} ? j.itemList : (j.itemList || []).slice(0, 1); // com conta (visto no relato): vários e com setas
+    if (!${q.get('setas') === '1'}) setasEl.style.display = 'none';
+    render(lista);
+  }
+  function sairDaPaginaDeVideo() { if (!modoVideo) return; modoVideo = false; M.modoVideo = false; document.getElementById('painel-video').style.display = 'none'; document.body.classList.remove('pagvideo'); setasEl.style.display = ''; }
   // navegação interna como o site: pushState sem recarregar
   // comentários como o site (medido): abrir troca a URL para /@perfil/video/<id> e empurra o vídeo e as setas; fechar volta a URL
   let comAberto = false, urlFeed = '/foryou';
@@ -211,10 +283,11 @@ ${q.get('banner') === '1' ? '<div class="css-9x-7937d88b--DivLiveFloatWrapper e1
     if (on) { urlFeed = location.pathname; history.pushState({}, '', '/@mock/video/' + idTela()); } else history.pushState({}, '', urlFeed);
   };
   window.__ir = async (p) => {
-    window.__comentarios(false, true);
+    window.__comentarios(false, true); sairDaPaginaDeVideo(); M.irs = (M.irs || []).concat(p);
     history.pushState({}, '', p);
     col.innerHTML = ''; n = 0;
     if (p.startsWith('/following')) { const r = await fetch('/api/following/item_list/?aid=1988'); const j = await r.json(); M.respostas.push({ via: 'fetch-following', n: j.itemList.length }); render(j.itemList); }
+    else if (p.startsWith('/explore')) await grade('/api/explore/item_list/');
     else if (p.startsWith('/friends')) { const r = await fetch('/api/friends/item_list/?aid=1988'); const j = await r.json(); M.respostas.push({ via: 'fetch-friends', n: j.itemList.length }); render(j.itemList); }
     else if (p === '/' || p.startsWith('/foryou')) { pag = 0; await carregar(); }
   };
@@ -228,6 +301,13 @@ ${q.get('banner') === '1' ? '<div class="css-9x-7937d88b--DivLiveFloatWrapper e1
       history.replaceState({}, '', '/@mock/video/7700000000000000001'); window.__comentarios(true, true); comAberto = true;
       await new Promise((r) => setTimeout(r, 2500)); await carregar(); await preload();
     }
+    else if (${q.get('vaiParaVideo') === '1'} && (p === '/' || p.startsWith('/foryou'))) {
+      // o TikTok (com conta?) leva a entrada direta para um vídeo: a URL vira /@x/video/id logo depois da carga
+      await new Promise((r) => setTimeout(r, 300));
+      history.replaceState({}, '', '/@mock/video/7700000000000000001'); await paginaDeVideo('7700000000000000001');
+    }
+    else if (p.startsWith('/explore')) await grade('/api/explore/item_list/');
+    else if (p.startsWith('/@') && p.includes('/video/')) await paginaDeVideo(p.split('/').pop());
     else if (p === '/' || p.startsWith('/foryou')) { await carregar(); await preload(); }
     M.pronto = true;
   })();
@@ -250,6 +330,8 @@ export async function rotas(ctx) {
       let body = null;
       if (u.pathname === '/api/recommend/item_list/') { const i = Math.min(+(u.searchParams.get('count') || 0), FEED.recommend.length - 1); body = FEED.recommend[i]; }
       else if (u.pathname === '/api/preload/item_list/') body = FEED.preload;
+      else if (u.pathname === '/api/related/item_list/') body = FEED.recommend[1];
+      else if (u.pathname === '/api/explore/item_list/') body = FEED.recommend[0]; // grade do Explorar (modo navegador) // "Você pode gostar" / vídeos relacionados
       else if (u.pathname === '/api/following/item_list/' || u.pathname === '/api/friends/item_list/') body = FEED.following; // Amigos: mesma forma (rota do código do site)
       else if (u.pathname === '/api/escape/item_list/') body = FEED.escape;
       if (body && Array.isArray(body.itemList)) body = Object.assign({}, body, { itemList: body.itemList.map((it) => Object.assign({}, it, { digged: st.curtidos.has(String(it.id)), author: it.author && Object.assign({}, it.author, { relation: st.seguindo.has(it.author.uniqueId) ? 1 : 0 }) })) });

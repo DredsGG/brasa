@@ -10,7 +10,7 @@ const TT_TABS = ['https://www.tiktok.com/*'];
 const TT_RE = /^https:\/\/www\.tiktok\.com\//;
 const MAIN_JS = ['src/proto.js', 'src/page.js'];
 // mesma lista e ordem do manifest (o teste recarga-e2e confere)
-const CONTENT = ['src/defaults.js', 'src/i18n.js', 'src/novidades.js', 'src/comum.js', 'src/vendor/qrcode.js', 'src/apoio.js', 'src/core.js', 'src/menu.js', 'src/ui.js', 'src/conta.js', 'src/foco.js', 'src/guarda-regras.js', 'src/guarda.js', 'src/acoes.js', 'src/baixar.js', 'src/auto.js', 'src/engaja.js', 'src/comentarios.js'];
+const CONTENT = ['src/defaults.js', 'src/i18n.js', 'src/novidades.js', 'src/comum.js', 'src/vendor/qrcode.js', 'src/apoio.js', 'src/core.js', 'src/menu.js', 'src/ui.js', 'src/conta.js', 'src/foco.js', 'src/guarda-regras.js', 'src/guarda.js', 'src/acoes.js', 'src/baixar.js', 'src/auto.js', 'src/engaja.js', 'src/entrada.js', 'src/comentarios.js'];
 
 const cmpVer = (a, b) => {
   const pa = String(a).split('.').map((n) => parseInt(n, 10) || 0), pb = String(b).split('.').map((n) => parseInt(n, 10) || 0);

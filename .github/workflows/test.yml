@@ -36,7 +36,7 @@ jobs:
         run: |
           cd tests
           falhou=""
-          for t in e2e-base e2e-foco e2e-guarda e2e-grupos e2e-baixar e2e-auto e2e-coment e2e-conta e2e-engaja recarga-e2e; do
+          for t in e2e-base e2e-foco e2e-guarda e2e-grupos e2e-baixar e2e-auto e2e-coment e2e-conta e2e-engaja e2e-entrada e2e-navegador recarga-e2e; do
             echo "::group::$t"; node "$t.mjs" || falhou="$falhou $t"; echo "::endgroup::"
           done
           if [ -n "$falhou" ]; then echo "::error::Failed:$falhou"; exit 1; fi

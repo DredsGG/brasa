@@ -50,7 +50,8 @@
     return null;
   }
   // só os feeds (Para você e Seguindo); perfil, busca e Explorar ficam como o site manda
-  const ROTAS_FOCO = /^(recommend|preload|following|friend)$/;
+  // v1.0.1: "friends" (a rota do Amigos é /api/friends/item_list/; antes só casava "friend") e "related" (Você pode gostar / página de vídeo)
+  const ROTAS_FOCO = /^(recommend|preload|following|friends?|related)$/;
   // ajustes que chegam do content script; até chegarem, os de fábrica (modo foco ligado, os três filtros ligados)
   let cfg = { ativo: true, foco: true, anuncio: true, live: true, loja: true };
   let cfgOk = false, cfgEspera = null;

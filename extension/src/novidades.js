@@ -2,6 +2,16 @@
 // Frases curtas, do ponto de vista de quem usa. Aparece uma vez, na primeira abertura depois da atualização.
 globalThis.BRASA_NOVIDADES = {
   pt: {
+    '1.0.2': [
+      "O vídeo aberto de um perfil (ou do Explorar e da busca), no quadro com o X no canto, agora tem a Brasa inteira: o bloco com Baixar, Auto, Curtir e Seguir ao lado da seta, e tudo funciona ali também.",
+      "No quadro, o Auto passa para o próximo quando o vídeo acaba (lá ele não repete), e os carrosséis de fotos também passam, depois dos segundos que você escolheu.",
+      "O botão Baixar não aparece mais solto em páginas sem vídeo, como a grade de um perfil.",
+    ],
+    '1.0.1': [
+      "Abrindo o TikTok direto, às vezes ele caía num vídeo solto com \"Você pode gostar\" do lado. Agora a Brasa vai sozinha para o Para você (chave \"Abrir sempre no Para você\", ligada). Link de vídeo que você abriu de propósito fica onde está.",
+      "Na página de um vídeo, os Comentários abertos trocam a aba da direita para Comentários. Se você escolher \"Você pode gostar\", ela fica lá.",
+      "O modo foco agora também tira anúncio e LIVE do Amigos e da lista \"Você pode gostar\".",
+    ],
     '1.0.0': [
       "Brasa 1.0: primeira versão pública, agora no GitHub (DredsGG/brasa). Tudo das versões de teste revisado e conferido no TikTok de verdade. Obrigado por testar junto!",
       "Daqui em diante a Brasa avisa sozinha quando sair versão nova, e o \"Relatar bug\" do rodapé abre o relato direto no GitHub.",
@@ -58,6 +68,16 @@ globalThis.BRASA_NOVIDADES = {
     ],
   },
   en: {
+    '1.0.2': [
+      "A video opened from a profile (or from Explore and search), in the panel with the X in the corner, now has all of Brasa: the block with Save, Auto, Like and Follow next to the arrow, and everything works there too.",
+      "In that panel, Auto moves on when the video ends (there it does not loop), and photo carousels move on too, after the seconds you picked.",
+      "The Save button no longer shows up loose on pages without a video, like a profile grid.",
+    ],
+    '1.0.1': [
+      "Opening TikTok directly sometimes landed on a lone video with \"You may like\" next to it. Brasa now goes to For You by itself (the \"Always open on For You\" switch, on). A video link you opened on purpose stays where it is.",
+      "On a video page, Comments open switches the right column to Comments. If you pick \"You may like\", it stays there.",
+      "Focus mode now also removes ads and LIVE from Friends and from the \"You may like\" list.",
+    ],
     '1.0.0': [
       "Brasa 1.0: first public release, now on GitHub (DredsGG/brasa). Everything from the test versions reviewed and checked on real TikTok. Thanks for testing along!",
       "From now on Brasa tells you by itself when a new version is out, and \"Report a bug\" in the footer opens the report straight on GitHub.",
@@ -114,6 +134,16 @@ globalThis.BRASA_NOVIDADES = {
     ],
   },
   es: {
+    '1.0.2': [
+      "El video abierto desde un perfil (o desde Explorar y la búsqueda), en el panel con la X en la esquina, ahora tiene todo Brasa: el bloque con Bajar, Auto, Me gusta y Seguir junto a la flecha, y todo funciona ahí también.",
+      "En ese panel, Auto pasa al siguiente cuando el video termina (ahí no se repite), y los carruseles de fotos también pasan, después de los segundos que elegiste.",
+      "El botón Bajar ya no aparece suelto en páginas sin video, como la cuadrícula de un perfil.",
+    ],
+    '1.0.1': [
+      "Al abrir TikTok directo, a veces caía en un video suelto con \"Te puede gustar\" al lado. Ahora Brasa va sola a Para ti (el interruptor \"Abrir siempre en Para ti\", activado). Un enlace de video que abriste a propósito se queda donde está.",
+      "En la página de un video, Comentarios abiertos cambia la columna de la derecha a Comentarios. Si eliges \"Te puede gustar\", se queda ahí.",
+      "El modo foco ahora también quita anuncios y LIVE de Amigos y de la lista \"Te puede gustar\".",
+    ],
     '1.0.0': [
       "Brasa 1.0: primera versión pública, ahora en GitHub (DredsGG/brasa). Todo lo de las versiones de prueba revisado y comprobado en TikTok de verdad. ¡Gracias por probar con nosotros!",
       "A partir de ahora Brasa avisa sola cuando sale una versión nueva, y \"Reportar error\" en el pie abre el reporte directo en GitHub.",

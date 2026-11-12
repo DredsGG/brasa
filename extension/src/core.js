@@ -61,8 +61,33 @@
     : /^\/@[^/]+\/(video|photo)\//.test(p) ? 'video' : /^\/@[^/]+\/?$/.test(p) ? 'profile' : 'other');
   const page = { kind: kindOf(location.pathname), url: location.pathname + location.search };
   // os feeds de vídeo em coluna (Para você, Seguindo, Amigos): modo foco, Auto e comentários abertos valem neles
+  // v1.0.1: por onde a aba entrou (a URL da primeira carga, antes de qualquer troca do site) e como (navigate, reload, back_forward)
+  const entrada = (() => { let tipo = ''; try { const n = performance.getEntriesByType('navigation')[0]; tipo = (n && n.type) || ''; } catch (_) {} return { caminho: location.pathname, tipo, em: Date.now() }; })();
   const FEEDS = ['foryou', 'following', 'friends'];
   const ehFeed = (k = page.kind) => FEEDS.includes(k);
+  // v1.0.2 · "modo navegador" do TikTok: o quadro que cobre a página ao abrir um vídeo de uma grade (perfil, Explorar, busca).
+  // Medido 2026-11-12 (ferramentas/medir-navegador.mjs, sem login): vídeo = [data-e2e="browse-video"] (com #xgwrapper-N-<id> e o
+  // <video>, SEM loop: no fim ele para), setas [data-e2e="arrow-left|arrow-right"] (button, aria-disabled no limite), fechar
+  // [data-e2e="browse-close"], coração [data-e2e="browse-like-icon"] (o aria-pressed fica no elemento de cima), seguir
+  // [data-e2e="browse-follow"] (div com o botão; "Seguindo" usa outra classe, --StyledFollowingButtonTux). A URL vira a do vídeo.
+  function navegador() {
+    const x = document.querySelector('[data-e2e="browse-close"]'); // o quadro aberto (o fechar visível)
+    if (!x || !(x.getBoundingClientRect().width > 0)) return null;
+    const cy = innerHeight / 2;
+    // vídeo = browse-video; carrossel de fotos (URL /@x/photo/id; relato do André, v1.0.2) = o tocador de fotos do site:
+    // --DivPhotoVideoContainer > --DivSwiperContainer > img --ImgPhotoSlide (passa sozinho a cada 2,5 s; código do site)
+    for (const el of document.querySelectorAll('[data-e2e="browse-video"],[class*="--DivPhotoVideoContainer"]')) {
+      const r = el.getBoundingClientRect();
+      if (r.width > 0 && r.top <= cy && r.bottom >= cy) {
+        const foto = !el.matches('[data-e2e="browse-video"]');
+        const w = el.querySelector('[id^="xgwrapper-"]'), m = w && w.id.match(/(\d{8,})$/);
+        return { el, foto, id: m ? m[1] : ((location.pathname.match(/\/(?:video|photo)\/(\d+)/) || [])[1] || ''), video: foto ? null : el.querySelector('video'), prox: document.querySelector('[data-e2e="arrow-right"]') };
+      }
+    }
+    return null;
+  }
+  // onde os recursos do vídeo (bloco, Auto, Curtir/Seguir) valem: os feeds e o modo navegador
+  const ehTelaDeVideo = () => ehFeed() || !!navegador();
   // de qual feed a página veio (para /@x/video/id com os comentários abertos continuar sendo esse feed)
   let feedDeOrigem = ehFeed(page.kind) ? page.kind : null;
   // cara de feed (medido 2026-11-12): o feed tem vários recommend-list-item-container e as setas feed-navigation-*; a página de
@@ -137,7 +162,7 @@
   }
 
   const BRASA = globalThis.BRASA = {
-    ext, I, C, DEF, K, VERSION, S, page, ehFeed, feed,
+    ext, I, C, DEF, K, VERSION, S, page, ehFeed, navegador, ehTelaDeVideo, entrada, feed,
     get lang() { return lang; }, L: () => I.T[lang] || I.T.en, setLang, setAj,
     cfgMain, mandarCfg,
     on, emit, onStop, log: (k, a, ok) => (alive() ? DEF.logar(k, a, ok) : Promise.resolve()), bridge, alive, ativo, urgente,

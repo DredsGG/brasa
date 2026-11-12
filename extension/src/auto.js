@@ -31,12 +31,14 @@
 
   // ───────────────────────── estado da tela ─────────────────────────
   function artigoDaTela() {
+    const nv = BRASA.navegador && BRASA.navegador(); if (nv) return nv.el; // v1.0.2: modo navegador (o quadro do vídeo)
     const cy = innerHeight / 2;
     for (const a of document.querySelectorAll('[data-e2e="recommend-list-item-container"]')) { const r = a.getBoundingClientRect(); if (r.top <= cy && r.bottom >= cy) return a; }
     return null;
   }
-  const idDe = (a) => { const w = a && a.querySelector('[id^="xgwrapper-"]'); const m = w && w.id.match(/(\d{8,})$/); return m ? m[1] : (a ? a.getAttribute('data-scroll-index') || a.id : ''); };
-  const ehFoto = (a) => !!(a && a.querySelector('[data-e2e="anchoring-photo-control"]') && !a.querySelector('video'));
+  const doQuadro = (a) => { const nv = a && BRASA.navegador && BRASA.navegador(); return nv && nv.el === a ? nv : null; };
+  const idDe = (a) => { const w = a && a.querySelector('[id^="xgwrapper-"]'); const m = w && w.id.match(/(\d{8,})$/); if (m) return m[1]; const q = doQuadro(a); return q ? q.id : (a ? a.getAttribute('data-scroll-index') || a.id : ''); };
+  const ehFoto = (a) => !!(a && ((a.querySelector('[data-e2e="anchoring-photo-control"]') && !a.querySelector('video')) || (doQuadro(a) || {}).foto));
   // comentários (nomes do código do site): a barra lateral de comentários aberta e visível
   const COMENT = '[class*="--SectionCommentSidebarContainer"],[class*="--DivCommentSidebarTransitionWrapper"],[class*="--DivSidePanelCommentPanelRoot"],[class*="--DivCommentListContainer"]';
   const comentariosAbertos = () => { for (const e of document.querySelectorAll(COMENT)) { const r = e.getBoundingClientRect(); if (r.width > 40 && r.height > 40 && getComputedStyle(e).visibility !== 'hidden') return true; } return false; };
@@ -46,13 +48,14 @@
   const onSai = (e) => { if (!e.relatedTarget) naBarra = false; }; // mouse saiu da janela
   addEventListener('pointermove', onMove, true);
   document.addEventListener('mouseout', onSai);
-  const ligadoAqui = () => BRASA.ativo() && !!BRASA.S.auto && BRASA.ehFeed();
+  const ligadoAqui = () => BRASA.ativo() && !!BRASA.S.auto && BRASA.ehTelaDeVideo();
   let trava = null, ultimoPasso = 0;
   const podeAgora = () => ligadoAqui() && !document.hidden && !digitando() && !naBarra && !trava && !(BRASA.menu && BRASA.menu.aberto);
   BRASA.auto = { podeAgora: () => ({ ligado: ligadoAqui(), escondida: document.hidden, comentarios: comentariosAbertos(), digitando: digitando(), naBarra, trava: !!trava }) };
 
   function passar(de) {
-    const b = document.querySelector('[data-e2e="feed-navigation-next"]');
+    const nv = BRASA.navegador && BRASA.navegador();
+    const b = (nv && nv.prox && nv.prox.getAttribute('aria-disabled') !== 'true' && !nv.prox.disabled) ? nv.prox : document.querySelector('[data-e2e="feed-navigation-next"]');
     trava = { de, at: Date.now() }; ultimoPasso = Date.now();
     document.dispatchEvent(new Event('brasa:auto-passou')); // sinal sem dados: os testes contam só os passos da Brasa
     if (b) b.click();
@@ -65,7 +68,7 @@
     v.__brVolta = Date.now();
     setTimeout(() => { // o player volta ao 0 e toca de novo em ~50 ms; se ficou parado (pausado), não é para passar
       const a = artigoDaTela();
-      if (!a || a.querySelector('video') !== v || v.paused || Date.now() - ultimoPasso < 1000 || Date.now() - chegouEm < 1500) return; // recém-chegado: não é volta
+      if (!a || a.querySelector('video') !== v || (v.paused && !v.ended) || Date.now() - ultimoPasso < 1000 || Date.now() - chegouEm < 1500) return; // recém-chegado: não é volta
       if (podeAgora()) passar(idDe(a));
     }, 200);
   }
@@ -99,7 +102,7 @@
   const ICO_AUTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l9 7-9 7z"/><path d="M19 5v14"/></svg>';
   function garantirBotoes() {
     if (BRASA.dead || !BRASA.acoes) return;
-    if (!BRASA.ativo() || !BRASA.ehFeed()) { BRASA.acoes.tirar('auto'); return; }
+    if (!BRASA.ativo() || !BRASA.ehTelaDeVideo()) { BRASA.acoes.tirar('auto'); return; }
     BRASA.acoes.item('auto', 20, L().acaoAuto, () => {
       const b = document.createElement('button');
       b.type = 'button'; b.className = BTN; b.innerHTML = ICO_AUTO;

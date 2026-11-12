@@ -52,6 +52,7 @@
 
   // vídeo da tela: o artigo do meio (feed) ou o da página de vídeo (/@x/video/<id>)
   function artigoDaTela() {
+    const nv = BRASA.navegador && BRASA.navegador(); if (nv) return nv.el; // v1.0.2: modo navegador (o quadro do vídeo)
     const cy = innerHeight / 2;
     for (const a of document.querySelectorAll('[data-e2e="recommend-list-item-container"]')) { const r = a.getBoundingClientRect(); if (r.top <= cy && r.bottom >= cy) return a; }
     return null;
@@ -68,14 +69,15 @@
   // ── botão na barra do player (grupo da direita, antes do "…") ──
   function garantirBotoes() {
     if (BRASA.dead || !BRASA.acoes) return;
-    const on = BRASA.ativo() && BRASA.S.baixar;
+    // v1.0.2: só onde há vídeo na tela (feed, quadro do modo navegador ou página de um vídeo), não solto numa grade
+    const on = BRASA.ativo() && BRASA.S.baixar && (BRASA.ehTelaDeVideo() || BRASA.page.kind === 'video');
     if (!on) { BRASA.acoes.tirar('baixar'); return; }
     const T = L();
     BRASA.acoes.item('baixar', 10, T.acaoBaixar, () => {
       const b = document.createElement('button');
       b.type = 'button'; b.className = BTN; b.innerHTML = ICO_BAIXAR;
       b.setAttribute('aria-label', T.baixarBotao); b.title = T.baixarBotao + ' (D)';
-      b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); baixar(b.closest('[data-e2e="recommend-list-item-container"]')); });
+      b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); baixar(b.closest('[data-e2e="recommend-list-item-container"]') || artigoDaTela()); });
       return b;
     });
   }

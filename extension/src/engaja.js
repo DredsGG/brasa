@@ -39,17 +39,29 @@
   // ───────────────────────── leitura da tela ─────────────────────────
   const logado = () => (BRASA.conta ? BRASA.conta.logado() : !document.querySelector('#header-login-button'));
   function artigoDaTela() {
+    const nv = BRASA.navegador && BRASA.navegador(); if (nv) return nv.el; // v1.0.2: modo navegador (o quadro do vídeo)
     const cy = innerHeight / 2;
     for (const a of document.querySelectorAll('[data-e2e="recommend-list-item-container"]')) { const r = a.getBoundingClientRect(); if (r.top <= cy && r.bottom >= cy) return a; }
     return null;
   }
-  const idDe = (a) => { const w = a && a.querySelector('[id^="xgwrapper-"]'); const m = w && w.id.match(/(\d{8,})$/); return m ? m[1] : ''; };
+  const idDe = (a) => { const w = a && a.querySelector('[id^="xgwrapper-"]'); const m = w && w.id.match(/(\d{8,})$/); if (m) return m[1]; const nv = a && BRASA.navegador && BRASA.navegador(); return nv && nv.el === a ? nv.id : ''; };
   const ehPropaganda = (a) => !!a.querySelector('[data-e2e="sponsored-tag"],[data-e2e="ad-tag"],[data-e2e="ttam-ads-cta"],[data-e2e="anchoring-live-frame"],[class*="--DivRecommendLivePlayer"]');
   const visivel = (e) => { if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).visibility !== 'hidden'; };
   // rótulo de "Seguir" (quem ainda não segue) nos idiomas do TikTok mais usados aqui; qualquer outro rótulo = não clica
   const SEGUIR_RE = /^(seguir|seguir de volta|follow|follow back|seguir también|suivre|folgen|segui)$/i;
-  const coracao = (a) => a.querySelector('[data-e2e="like-icon"]');
-  const botaoSeguir = (a) => [...a.querySelectorAll('[data-e2e="cinema-video-info-follow"]')].find(visivel) || null;
+  // feed: o coração tem o aria-pressed; modo navegador (v1.0.2): [data-e2e="browse-like-icon"] e o aria-pressed no elemento de cima
+  const noNavegador = (a) => { const nv = a && BRASA.navegador && BRASA.navegador(); return !!(nv && nv.el === a); }; // vídeo ou carrossel do quadro
+  const coracao = (a) => {
+    if (!noNavegador(a)) return a.querySelector('[data-e2e="like-icon"]');
+    const i = [...document.querySelectorAll('[data-e2e="browse-like-icon"]')].find(visivel);
+    return i ? (i.hasAttribute('aria-pressed') ? i : i.closest('[aria-pressed]')) : null;
+  };
+  const botaoSeguir = (a) => {
+    if (!noNavegador(a)) return [...a.querySelectorAll('[data-e2e="cinema-video-info-follow"]')].find(visivel) || null;
+    const w = [...document.querySelectorAll('[data-e2e="browse-follow"]')].find(visivel);
+    if (!w || w.matches('[class*="--StyledFollowingButtonTux"]') || w.querySelector('[class*="--StyledFollowingButtonTux"]')) return null; // "Seguindo"/"Amigos": nunca
+    return w.matches('button') ? w : (w.querySelector('button') || w);
+  };
 
   // ───────────────────────── contagem do dia ─────────────────────────
   let fila = Promise.resolve();
@@ -121,7 +133,7 @@
     if (BRASA.dead || ocupado) return;
     const S = BRASA.S;
     if (!S.autoCurtir && !S.autoSeguir) return porque('desligado');
-    if (!BRASA.ativo() || !BRASA.ehFeed()) return porque('pagina-' + BRASA.page.kind);
+    if (!BRASA.ativo() || !BRASA.ehTelaDeVideo()) return porque('pagina-' + BRASA.page.kind);
     if (document.hidden) return porque('aba-escondida');
     if (BRASA.menu && BRASA.menu.aberto) return porque('menu-aberto');
     if (!logado()) return porque('sem-conta');
@@ -148,7 +160,7 @@
     if (BRASA.dead) return;
     const T = L();
     for (const [chave, ordem, aj, ico, rot] of BOTOES) {
-      if (!BRASA.ativo() || !BRASA.ehFeed()) { BRASA.acoes.tirar(chave); continue; }
+      if (!BRASA.ativo() || !BRASA.ehTelaDeVideo()) { BRASA.acoes.tirar(chave); continue; }
       BRASA.acoes.item(chave, ordem, T[rot], () => {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'brasa-' + chave; b.innerHTML = ico;

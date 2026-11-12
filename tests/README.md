@@ -17,6 +17,8 @@ A extensão vem de `../extension` (no repo) ou `../instalada` (no PC de quem des
 | `node e2e-coment.mjs` | comentários abertos no Para você, Seguindo e Amigos | TikTok simulado |
 | `node e2e-conta.mjs` | Trocar de conta pelo Sair do TikTok (simulado: ninguém sai de conta nenhuma) | TikTok simulado |
 | `node e2e-engaja.mjs` | Curtir/Seguir sozinho: nunca desfaz, ritmo e teto do dia; Rolagem automática do TikTok escondida | TikTok simulado |
+| `node e2e-entrada.mjs` | entrada direta que cai num vídeo solto ("Você pode gostar") vai para o Para você; link de fora fica e abre Comentários | TikTok simulado |
+| `node e2e-navegador.mjs` | o vídeo aberto de uma grade (perfil, Explorar, busca): bloco, Baixar, Auto (vídeo e carrossel), Curtir/Seguir | TikTok simulado |
 | `node recarga-e2e.mjs` | reinjeção e recarga pela pasta esperando o envio (≈2 min) | TikTok simulado |
 | `node ao-vivo.mjs light\|dark` | tiktok.com real, **sem login**: botão, modo foco, download real, rolagem real | site real |
 | `node navegadores-teste.mjs` | carrega nos Chromium instalados (Chromium, Edge, Brave; Chrome e Opera GX se houver) | — |

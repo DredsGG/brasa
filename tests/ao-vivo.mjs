@@ -106,6 +106,51 @@ check(`[${tema}] botões Curtir e Seguir no bloco da Brasa no site real`, await 
 const curtidoras = await p.evaluate(() => [...document.querySelectorAll('[data-e2e="like-icon"]')].slice(0, 3).map((e) => [e.getAttribute('role'), e.getAttribute('aria-pressed')]));
 const seguirRot = await p.evaluate(() => [...document.querySelectorAll('[data-e2e="cinema-video-info-follow"]')].slice(0, 2).map((e) => e.getAttribute('aria-label')));
 check(`[${tema}] o medido segue igual: coração role=button com aria-pressed, "Seguir" com rótulo`, curtidoras.length > 0 && curtidoras.every((x) => x[0] === 'button' && /^(true|false)$/.test(x[1])) && seguirRot.every((x) => /^(Seguir|Follow)$/.test(x || '')), { curtidoras, seguirRot });
+// v1.0.1: entrada direta. (a) aba reaberta na URL de um vídeo que a Brasa viu NO FEED (comentários abertos) → o site mostra a página
+// do vídeo ("Você pode gostar") e a Brasa vai para o Para você (o item fica vermelho; já no feed, os comentários abertos trocam a URL de novo); (b) link de outro vídeo (nunca visto no feed) fica e abre Comentários
+await sw.evaluate(() => chrome.storage.local.get('br.ajustes').then((l) => chrome.storage.local.set({ 'br.ajustes': Object.assign({}, l['br.ajustes'] || {}, { auto: false }) })));
+const urlFeed = new URL(p.url()).pathname, idFeed = (urlFeed.match(/\/video\/(\d+)/) || [])[1];
+const lembrou = await until(async () => { const m = await sw.evaluate(async () => (await chrome.storage.local.get('br.urlsFeed'))['br.urlsFeed']); return m && idFeed && m[idFeed] ? 1 : null; }, 10000);
+await p.goto('about:blank'); // a aba do feed para de lembrar vídeos (senão ela grava de novo o vídeo da tela a cada 3 s)
+// (b) usa a mesma URL depois de tirar o vídeo da memória da Brasa = um link que ela nunca viu no feed (o feed real só monta 2 vídeos)
+const pr = await ctx.newPage(); pr.on('pageerror', (e) => { if (/brasa|chrome-extension/i.test(String(e.stack || e))) erros.push(String(e)); });
+await pr.goto('https://www.tiktok.com' + urlFeed, { waitUntil: 'domcontentloaded' });
+const foiPV = await until(async () => { const x = await pr.evaluate(() => document.documentElement.getAttribute('data-brasa-entrada')); return /^foi-para-voce/.test(x || '') ? x : null; }, 25000, 300);
+await wait(3000);
+const depoisPV = await pr.evaluate(() => ({ url: location.pathname, abas: !!document.querySelector('[class*="--DivRelatedTabContainer"]'), foryou: (() => { const e = document.querySelector('[data-e2e="nav-foryou"]'); return e && getComputedStyle(e.querySelector('*') || e).color; })(), entrada: document.documentElement.getAttribute('data-brasa-entrada') }));
+check(`[${tema}] aba reaberta na URL de um vídeo do feed: a Brasa foi para o Para você do site`, !!lembrou && foiPV === 'foi-para-voce-lembrada' && !depoisPV.abas && /^rgb\((25[0-5]|2[0-4]\d), ([0-9]|[1-9]\d), /.test(depoisPV.foryou || ''), { urlFeed, lembrou, foiPV, depoisPV });
+await pr.screenshot({ path: path.join(SHOT, `ao-vivo-${tema}-entrada.png`) });
+await pr.close();
+await sw.evaluate((id) => chrome.storage.local.get('br.urlsFeed').then((l) => { const m = l['br.urlsFeed'] || {}; delete m[id]; return chrome.storage.local.set({ 'br.urlsFeed': m }); }), idFeed);
+const outro = urlFeed;
+if (outro) {
+  const pl = await ctx.newPage(); pl.on('pageerror', (e) => { if (/brasa|chrome-extension/i.test(String(e.stack || e))) erros.push(String(e)); });
+  await pl.goto('https://www.tiktok.com' + outro, { waitUntil: 'domcontentloaded' });
+  const cm = await until(() => pl.evaluate(() => { const c = document.querySelector('[class*="--DivCommentMain"],[class*="--DivCommentListContainer"]'); return c && c.getBoundingClientRect().height > 0 ? 1 : null; }), 25000, 400);
+  await wait(1500);
+  const st = await pl.evaluate(() => ({ url: location.pathname, entrada: document.documentElement.getAttribute('data-brasa-entrada'), coment: document.documentElement.getAttribute('data-brasa-coment') }));
+  check(`[${tema}] link de vídeo que a Brasa nunca viu no feed: fica no vídeo e a aba vai para Comentários`, !!cm && /\/video\//.test(st.url) && st.entrada === 'link-de-video', { outro, ...st });
+  await pl.close();
+} else check(`[${tema}] link de outro vídeo (achar um vídeo ainda não visto no feed)`, false, 'nenhum candidato no DOM');
+// v1.0.2: modo navegador (vídeo aberto de uma grade: perfil/Explorar/busca) no site real. Sem login o perfil não mostra a grade;
+// o Explorar abre o mesmo quadro (browse-video, arrow-right, browse-close)
+await sw.evaluate(() => chrome.storage.local.get('br.ajustes').then((l) => chrome.storage.local.set({ 'br.ajustes': Object.assign({}, l['br.ajustes'] || {}, { baixar: true, auto: true }) })));
+const pn = await ctx.newPage(); pn.on('pageerror', (e) => { if (/brasa|chrome-extension/i.test(String(e.stack || e))) erros.push(String(e)); });
+await pn.goto('https://www.tiktok.com/explore', { waitUntil: 'domcontentloaded' });
+await until(() => pn.evaluate(() => document.querySelectorAll('a[href*="/video/"]').length > 0), 25000, 500);
+await pn.evaluate(() => { const a = document.querySelector('a[href*="/video/"]'); if (a) a.click(); });
+const quadro = await until(() => pn.evaluate(() => !!document.querySelector('[data-e2e="browse-video"] video') && !!document.querySelector('[data-e2e="browse-close"]')), 20000, 400);
+const blocoNav = await until(() => pn.evaluate(() => { const c = document.querySelector('.brasa-acoes'), s = document.querySelector('[data-e2e="arrow-right"]'); if (!c || !s) return null; const r = c.getBoundingClientRect(), q = s.getBoundingClientRect(); const it = [...c.querySelectorAll('.brasa-item')].map((i) => i.dataset.acao); const topo = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return it.includes('auto') && it.includes('baixar') ? { it, acima: r.bottom <= q.top + 1, visivel: r.width > 0 && !!topo && c.contains(topo) } : null; }), 12000, 400);
+check(`[${tema}] quadro do vídeo (modo navegador) no site real: bloco da Brasa com Baixar e Auto acima das setas do quadro`, !!quadro && !!blocoNav && blocoNav.acima && blocoNav.visivel, { quadro, blocoNav, url: await pn.evaluate(() => location.pathname) });
+await pn.screenshot({ path: path.join(SHOT, `ao-vivo-${tema}-navegador.png`) });
+// Auto no quadro: o vídeo não repete; leva para perto do fim e confere que passou pela seta do quadro
+const idNav = () => pn.evaluate(() => { const cy = innerHeight / 2; const el = [...document.querySelectorAll('[data-e2e="browse-video"]')].find((e) => { const r = e.getBoundingClientRect(); return r.top <= cy && r.bottom >= cy; }); const w = el && el.querySelector('[id^="xgwrapper-"]'); return w ? w.id : null; });
+const antesNav = await idNav();
+await pn.mouse.move(5, 5);
+await pn.evaluate(() => { const cy = innerHeight / 2; const el = [...document.querySelectorAll('[data-e2e="browse-video"]')].find((e) => { const r = e.getBoundingClientRect(); return r.top <= cy && r.bottom >= cy; }); const v = el && el.querySelector('video'); if (v && isFinite(v.duration)) { v.muted = true; v.play().catch(() => {}); v.currentTime = Math.max(0, v.duration - 1.2); } });
+const depoisNav = await until(async () => { const x = await idNav(); return x && x !== antesNav ? x : null; }, 20000, 300);
+check(`[${tema}] Auto no quadro: no fim do vídeo passou para o próximo (seta do quadro)`, !!depoisNav, { antesNav, depoisNav });
+await pn.close();
 check(`[${tema}] sem erro de script da Brasa`, erros.length === 0, erros.slice(0, 3));
 await ctx.close();
 fim();

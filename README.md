@@ -8,7 +8,7 @@
 No ads, LIVE or shop videos in your feed, a streak keeper for the chats you choose, video download with sound and auto scroll. Free, no account, no server.
 
 ![Manifest V3](https://img.shields.io/badge/Manifest-V3-4285F4?logo=googlechrome&logoColor=white)
-![Version](https://img.shields.io/badge/version-1.0.0-fe2c55)
+![Version](https://img.shields.io/badge/version-1.0.2-fe2c55)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 **Works on:** Chrome · Edge · Brave · Opera GX (desktop, tiktok.com)
@@ -23,14 +23,15 @@ No ads, LIVE or shop videos in your feed, a streak keeper for the chats you choo
 
 Brasa adds a **Brasa** item to TikTok's sidebar (below *More*). It opens a menu with one switch per feature and a line of explanation under each one.
 
-- **Focus mode** *(on by default)*. Ads, LIVE and shop videos are taken out of **For You, Following and Friends** before TikTok draws them; if one slips through, Brasa skips it in under a second. LIVE and shop pop-ups over the page are hidden too. The sidebar is left exactly as TikTok made it: everything stays clickable. A counter shows what was removed today.
+- **Focus mode** *(on by default)*. Ads, LIVE and shop videos are taken out of **For You, Following and Friends** (and the *You may like* list) before TikTok draws them; if one slips through, Brasa skips it in under a second. LIVE and shop pop-ups over the page are hidden too. The sidebar is left exactly as TikTok made it: everything stays clickable. A counter shows what was removed today.
 - **Streak keeper** *(does nothing until you mark a chat)*. In the **Streaks** tab you mark the chats and groups that have a streak 🔥. At 19:00 (and again at 22:00 as a backup; both times are yours to change) Brasa opens TikTok's Messages in its own minimized window and sends a short message, **only in the marked chats, and only if you haven't sent anything there that day**. Start with **Test without sending**: it opens the chats and types, but never presses send. The phrases are yours to edit. Optionally it keeps working with the browser closed (Chrome asks for the `background` permission).
 - **Download videos** *(off by default)*. A **Save** button next to the video (or the **D** key) saves the video **with sound and without the watermark**, plus the cover and the photos of a carousel if you want them, into a folder of your choice inside Downloads.
 - **Auto next** *(off by default)*. When the video ends, Brasa moves to the next one, once (photos after a few seconds you choose). It waits while the video is paused, while you type, or with the mouse on the player bar. TikTok's own *Auto scroll* switch is hidden, so you don't press it by accident.
-- **Comments open** *(on by default)*. The comments panel opens next to the video on For You, Following and Friends. If you close it, it stays closed until you come back.
+- **Comments open** *(on by default)*. The comments panel opens next to the video on For You, Following and Friends. If you close it, it stays closed until you come back. On a video's own page it switches the right column from *You may like* to *Comments*.
+- **Always open on For You** *(on by default)*. If TikTok opens on a lone video with *You may like* next to it (for example when the browser reopens the last tab), Brasa goes to For You through TikTok's own button. A video link you opened on purpose stays where it is.
 - **Auto like and Auto follow** *(both off by default)*. Likes each video you open in the feed and follows whoever posted it, also when *Auto next* moves on. **They never undo anything:** Brasa only clicks when both the page and TikTok's own data say *not liked yet* / *not following yet*; if in doubt, it doesn't click. A rhythm and a daily limit keep it calm: one like every 3 s and up to 500 a day; one follow every 20 s and up to 150 a day.
 - **Switch account**. An item right below Brasa in the sidebar: it asks first, uses TikTok's own *Log out* and then opens TikTok's log in screen, where you pick or enter the other account. Brasa never reads, stores or types a password.
-- **Save, Auto, Like and Follow buttons** next to the video, in one block with the Brasa flame, so you can tell they come from the extension.
+- **Save, Auto, Like and Follow buttons** next to the video, in one block with the Brasa flame, so you can tell they come from the extension. They also work on a video opened from a profile, Explore or search (the panel with the X in the corner), photo carousels included.
 
 <div align="center">
 
@@ -71,7 +72,7 @@ Short version: **nothing you watch or chat leaves your browser.** There is no Br
 | | |
 |---|---|
 | **What it reads** (only on `tiktok.com`) | TikTok's own feed responses, kept **in memory only**, to take ads, LIVE and shop videos out and to find the video file when you press Save. On the Messages page: the chat list (name, picture, last message preview and time) and, for chats you open or mark, which days had messages from you and from the other side, and the streak count TikTok sends, so the streak keeper knows when to act. |
-| **What it stores** (in your browser, `storage.local`) | Your settings; today's focus counter; the streak keeper's data (the chats it has seen, the ones you marked, your phrases, the last phrase sent per chat and today's results); today's auto like / auto follow count with the ids of the videos and profiles it acted on; the last 300 technical events of the log (event types, **no URLs, video text or chat content**); the update state. |
+| **What it stores** (in your browser, `storage.local`) | Your settings; today's focus counter; the streak keeper's data (the chats it has seen, the ones you marked, your phrases, the last phrase sent per chat and today's results); today's auto like / auto follow count with the ids of the videos and profiles it acted on; the ids of the last 300 feed videos whose address it saw (only for *Always open on For You*, kept 14 days); the last 300 technical events of the log (event types, **no URLs, video text or chat content**); the update state. |
 | **What it sends** | **1)** The update check: `GET api.github.com/repos/DredsGG/brasa/releases/latest` (GitHub sees your IP, as with any request). **2)** *Save* downloads the video from TikTok's own media servers, the same way the page plays it. Nothing else. |
 | **What it does to your account** | Only what you turn on, always through TikTok's own buttons and with your session: the **streak keeper** sends messages in the chats you marked; **Auto like** and **Auto follow** like and follow; **Switch account** logs you out so you can log in to the other account. |
 | **Report a bug** | Opens a new GitHub issue in your browser with a short diagnostic (version, browser, page type, which switches are on, the types of the last log events). You read it before you send it. |
@@ -105,7 +106,7 @@ The code is here: read `extension/src/sw.js` (the update check and the downloads
 cd tests
 npm i
 node i18n-teste.mjs && node guarda-regras-teste.mjs
-bash rodar.sh e2e-base e2e-foco e2e-guarda e2e-grupos e2e-baixar e2e-auto e2e-coment e2e-conta e2e-engaja recarga-e2e
+bash rodar.sh e2e-base e2e-foco e2e-guarda e2e-grupos e2e-baixar e2e-auto e2e-coment e2e-conta e2e-engaja e2e-entrada e2e-navegador recarga-e2e
 ```
 
 Each must end with `TUDO PASSOU`. `ao-vivo.mjs` runs against the real tiktok.com (new profile, no login) and is for running by hand; `desempenho.mjs` measures CPU and memory over 10 minutes of the real feed. The **Test** workflow runs the first group on every push. See [`tests/README.md`](tests/README.md).
