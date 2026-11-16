@@ -41,6 +41,9 @@ await aj({ auto: true });
 const fins0 = (await mk(p)).nav.fins;
 const passou = await until(async () => { const m = await mk(p); return m.nav.proximos >= 1 && m.nav.id !== id0 ? m.nav : null; }, 20000, 200);
 check('Auto no quadro: no fim do vídeo passou para o próximo pela seta do quadro', !!passou && passou.fins > fins0, passou);
+// v1.0.3: no quadro, com o Auto ligado, a página fica "visível" para o site (o Auto segue com a aba em segundo plano)
+const fundoDe = (p) => p.evaluate(() => document.documentElement.getAttribute('data-brasa-fundo'));
+check('v1.0.3: Auto no quadro liga o segundo plano (a página continua "visível" para o site)', (await until(async () => (await fundoDe(p)) === '1', 4000, 150)) && (await p.evaluate(() => document.hidden === false && document.visibilityState === 'visible')), await fundoDe(p));
 // relato do André (print): o próximo era um carrossel de fotos (/photo/) e a Brasa sumia (só o Baixar) e não passava
 check('o próximo é um carrossel de fotos (URL /photo/)', passou && passou.foto && /\/photo\//.test(p.url()), p.url());
 const bf = await until(() => bloco(p), 4000);
@@ -50,7 +53,12 @@ const mostr = passouFoto ? passouFoto.mostrados : [], iF = mostr.findIndex((x) =
 check('Auto passa o carrossel depois de N s (2 s no teste) pela seta do quadro', !!passouFoto && !passouFoto.foto && msFoto >= 1800 && msFoto < 6000, { msFoto, mostr });
 await wait(1200);
 check('passou uma vez em cada (vídeo e carrossel)', (await mk(p)).nav.proximos === 2, (await mk(p)).nav);
+await aj({ autoFundo: false });
+check('v1.0.3: chave "Continuar com a aba em segundo plano" desligada: o segundo plano sai', !!(await until(async () => (await fundoDe(p)) === '0', 4000, 150)), await fundoDe(p));
+await aj({ autoFundo: true });
+check('v1.0.3: chave ligada de novo: o segundo plano volta', !!(await until(async () => (await fundoDe(p)) === '1', 4000, 150)), await fundoDe(p));
 await aj({ auto: false });
+check('v1.0.3: Auto desligado: o segundo plano sai junto', !!(await until(async () => (await fundoDe(p)) === '0', 4000, 150)), await fundoDe(p));
 
 // Curtir sozinho no quadro: curte o vídeo da tela (o aria-pressed fica no elemento de cima do ícone) e não desfaz
 await aj({ autoCurtir: true });

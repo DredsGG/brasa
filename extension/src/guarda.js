@@ -238,23 +238,44 @@
     return false;
   }
   // ── escrever no editor (Draft.js) ──
-  const textoEditor = () => { const e = document.querySelector(SEL.editor); return e ? e.textContent.replace(/​/g, '').trim() : null; };
+  const textoEditor = () => { const e = document.querySelector(SEL.editor); return e ? e.textContent.replace(/[\u200B\uFEFF]/g, '').trim() : null; };
+  // estado para o diagnóstico (sem nomes nem texto de conversa): aba escondida, janela com foco, editor com o foco
+  const vis = () => `h${document.hidden ? 1 : 0}f${document.hasFocus() ? 1 : 0}a${document.activeElement && document.activeElement === document.querySelector(SEL.editor) ? 1 : 0}`;
+  // o editor do TikTok é Draft.js: mexer no texto por fora (execCommand com a janela sem foco) deixa o estado dele diferente da tela
+  // e pode quebrar o painel (Registro do André, 2026-11-16: em toda rodada a 1ª conversa "não digitou" e as seguintes "não abriram").
+  // Por isso: foco + seleção dentro do editor e COLAR primeiro (o Draft.js trata o colar e põe o texto no estado dele); o
+  // execCommand fica de plano B, só com a janela em foco.
+  function focar(ed) {
+    try { ed.focus(); } catch (_) {}
+    try { ed.dispatchEvent(new FocusEvent('focusin', { bubbles: true })); ed.dispatchEvent(new FocusEvent('focus')); } catch (_) {}
+    try { const s = getSelection(), r = document.createRange(); const alvo = ed.querySelector('[data-text="true"]') || ed.querySelector('[data-contents="true"]') || ed; r.selectNodeContents(alvo); r.collapse(false); s.removeAllRanges(); s.addRange(r); document.dispatchEvent(new Event('selectionchange')); } catch (_) {}
+  }
+  const tem = (frase) => (textoEditor() || '').includes(frase.slice(0, 12));
   async function escrever(frase) {
     const ed = document.querySelector(SEL.editor);
-    if (!ed) return false;
-    ed.focus();
-    try { const s = getSelection(), r = document.createRange(); r.selectNodeContents(ed); r.collapse(false); s.removeAllRanges(); s.addRange(r); } catch (_) {}
-    document.execCommand('insertText', false, frase);
-    if (await ate(() => (textoEditor() || '').includes(frase.slice(0, 12)), 1500, 100)) return true;
-    // plano B: colar (o Draft.js trata o evento de colar)
+    if (!ed) return { ok: false, det: 'semEditor ' + vis() };
+    focar(ed);
+    await wait(120);
     try { const dt = new DataTransfer(); dt.setData('text/plain', frase); ed.dispatchEvent(new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true })); } catch (_) {}
-    return !!(await ate(() => (textoEditor() || '').includes(frase.slice(0, 12)), 1500, 100));
+    if (await ate(() => tem(frase), 1500, 100)) return { ok: true, det: 'colar' };
+    const t1 = (textoEditor() || '').length;
+    let ex = '-';
+    if (document.hasFocus() && !t1) { focar(ed); ex = document.execCommand('insertText', false, frase) ? 1 : 0; if (await ate(() => tem(frase), 1500, 100)) return { ok: true, det: 'exec' }; }
+    return { ok: false, det: `colar${t1} exec${ex}/${(textoEditor() || '').length} ${vis()}` };
   }
   async function limparEditor() {
     const ed = document.querySelector(SEL.editor);
     if (!ed) return true;
-    ed.focus();
-    for (let k = 0; k < 3 && textoEditor(); k++) { document.execCommand('selectAll'); document.execCommand('delete'); await wait(150); }
+    for (let k = 0; k < 3 && textoEditor(); k++) {
+      focar(ed);
+      // seleciona SÓ o conteúdo do editor (o selectAll do documento pega a página inteira quando o foco não está no editor)
+      try { const s = getSelection(), r = document.createRange(); r.selectNodeContents(ed.querySelector('[data-contents="true"]') || ed); s.removeAllRanges(); s.addRange(r); document.dispatchEvent(new Event('selectionchange')); } catch (_) {}
+      await wait(80);
+      // Draft.js: Backspace com tudo selecionado apaga pelo estado dele; o execCommand fica de plano B
+      ed.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace', code: 'Backspace', keyCode: 8, which: 8, bubbles: true, cancelable: true }));
+      await wait(150);
+      if (textoEditor()) { document.execCommand('delete'); await wait(150); }
+    }
     return !textoEditor();
   }
   const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim();
@@ -266,12 +287,14 @@
   const cabecalho = () => { const h = document.querySelector('[data-e2e="dm-new-chat-nickname"]') || document.querySelector('[data-e2e="dm-new-conversation-header"] [class*="--PNickname"]'); return h ? norm(h.textContent) : null; };
 
   // ── o executor: uma conversa por ordem do fundo ──
+  let passo = '';
   async function processar({ conv, frase, ensaio }) {
+    passo = 'inicio';
     if (!BRASA.ativo() || !BRASA.S.guarda) return { res: 'falhou', motivo: 'pausada' };
     if (!(((await ext.storage.local.get(K.fogMarcadas))[K.fogMarcadas] || {})[conv])) return { res: 'falhou', motivo: 'naoMarcada' }; // nunca escreve em conversa não marcada
     if (!ehMensagens()) return { res: 'falhou', motivo: 'foraDeMensagens' };
     if (!(await ate(() => document.querySelector(SEL.item), 20000))) return { res: 'falhou', motivo: 'semLista' };
-    let it = itemDaConv(conv);
+    passo = 'achar'; let it = itemDaConv(conv);
     for (let k = 0; !it && k < 12; k++) { const l = document.querySelector(SEL.lista); const sc = l && rolavel(l); if (sc) { sc.scrollTop = sc.scrollHeight; sc.dispatchEvent(new Event('scroll')); } await wait(900); it = itemDaConv(conv); }
     if (!it) return { res: 'falhou', motivo: 'naoAchei' };
     // (c) sequência perdida mostrada na prévia da lista (onde o TikTok mostrou "Sequência de N dias perdidos. Restaurar")
@@ -279,7 +302,7 @@
     if (pv && G.ePerdida(pv.textContent)) return { res: 'desmarcou', motivo: 'perdida' };
     const apelido = norm((it.querySelector(SEL.apelido) || {}).textContent || '');
     // o painel da conversa ANTERIOR pode continuar na tela enquanto o TikTok carrega a nova: espera um painel novo com o cabeçalho certo
-    const painelAntes = document.querySelector(SEL.msgs);
+    passo = 'abrir'; const painelAntes = document.querySelector(SEL.msgs);
     const jaAberta = it.getAttribute('aria-selected') === 'true';
     if (!jaAberta) it.click();
     const abriu = await ate(() => {
@@ -289,11 +312,14 @@
       const c = cabecalho();
       return c == null || !apelido || c === apelido;
     }, 12000);
-    if (!abriu) return { res: 'falhou', motivo: 'naoAbriu' };
+    if (!abriu) { // diagnóstico (sem nomes): item selecionado, painel, painel novo, cabeçalho (= igual, ≠ diferente, - sem) e tamanhos
+      const x = itemDaConv(conv), ml = document.querySelector(SEL.msgs), c = cabecalho();
+      return { res: 'falhou', motivo: 'naoAbriu', oculta: document.hidden, det: `sel${x && x.getAttribute('aria-selected') === 'true' ? 1 : 0} ml${ml ? 1 : 0} novo${ml && ml !== painelAntes ? 1 : 0} cab${c == null ? '-' : c === apelido ? '=' : '≠'}${c ? c.length : 0}/${apelido.length} ${vis()}` };
+    }
     await ate(() => document.querySelector(`${SEL.msgs} ${SEL.chat}`), 8000);
     await wait(800);
-    const completo = await carregarHistorico();
-    const a = G.analisar(lerConversa(), Date.now(), completo, eua());
+    passo = 'historico'; const completo = await carregarHistorico();
+    passo = 'ler'; const a = G.analisar(lerConversa(), Date.now(), completo, eua());
     const d = G.decidir(a);
     if (d.acao === 'falhar') return { res: 'falhou', motivo: d.motivo };
     if (d.acao === 'pular') return { res: 'pulou', motivo: d.motivo };
@@ -304,19 +330,22 @@
     if (!sel || convDoItem(sel) !== conv || (apelido && cabecalho() != null && cabecalho() !== apelido)) return { res: 'falhou', motivo: 'conversaErrada' };
     // rascunho da pessoa no editor: tenta apagar; se não der, NÃO manda (nunca envia texto que não é a frase)
     if (textoEditor() && !(await limparEditor())) return { res: 'falhou', motivo: 'rascunho' };
-    if (!(await escrever(frase))) { await limparEditor(); return { res: 'falhou', motivo: 'naoDigitou' }; }
-    if (norm(textoEditor()) !== norm(frase)) { await limparEditor(); return { res: 'falhou', motivo: 'naoDigitou' }; }
-    if (ensaio) { const limpo = await limparEditor(); return { res: 'ensaio', motivo: limpo ? 'ok' : 'naoLimpou' }; }
-    const antes = new Set(document.querySelectorAll(`${SEL.msgs} ${SEL.chat}`));
+    passo = 'digitar'; const es = await escrever(frase);
+    if (!es.ok) { await limparEditor(); return { res: 'falhou', motivo: 'naoDigitou', oculta: document.hidden, det: es.det }; }
+    if (norm(textoEditor()) !== norm(frase)) { const n = (textoEditor() || '').length; await limparEditor(); return { res: 'falhou', motivo: 'naoDigitou', oculta: document.hidden, det: `${es.det} difere${n}/${frase.length} ${vis()}` }; }
+    if (ensaio) { const limpo = await limparEditor(); return { res: 'ensaio', motivo: limpo ? 'ok' : 'naoLimpou', det: es.det + ' ' + vis() }; }
+    passo = 'enviar'; const antes = new Set(document.querySelectorAll(`${SEL.msgs} ${SEL.chat}`));
     const btn = await ate(() => document.querySelector(SEL.enviar), 3000, 100);
-    if (btn) btn.click();
-    else { const ed = document.querySelector(SEL.editor); ed.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, cancelable: true })); }
-    const apareceu = await ate(() => ultimaMinhaCom(frase, antes), 15000, 250);
-    if (!apareceu) return { res: 'falhou', motivo: 'naoApareceu' };
+    // o botão de enviar do TikTok é um <svg> (Registro do André, 2026-11-16: "btn.click is not a function"): svg não tem .click(),
+    // então o clique vai como evento (o React do site ouve o "click" que sobe). Um clique só: nada de repetir
+    if (btn) { if (typeof btn.click === 'function') btn.click(); else btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window, button: 0 })); }
+    else { const ed = document.querySelector(SEL.editor); if (!ed) return { res: 'falhou', motivo: 'naoApareceu', det: `semBotao semEditor ${vis()}` }; ed.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, cancelable: true })); }
+    passo = 'conferir'; const apareceu = await ate(() => ultimaMinhaCom(frase, antes), 15000, 250);
+    if (!apareceu) return { res: 'falhou', motivo: 'naoApareceu', det: `${btn ? 'botao' : 'enter'} ${es.det} ${vis()}` };
     await wait(1500);
     const av = apareceu.querySelector(SEL.aviso);
     if (av && av.textContent.trim()) return { res: 'falhou', motivo: 'erroEnvio' };
-    return { res: 'mandou', motivo: 'ok' };
+    return { res: 'mandou', motivo: 'ok', det: es.det };
   }
   let ocupado = false;
   const onMsg = (m, sender, responder) => {
@@ -325,7 +354,7 @@
     if (m.cmd === 'conversa') {
       if (ocupado) { responder({ res: 'falhou', motivo: 'ocupado' }); return; }
       ocupado = true;
-      processar(m).then((r) => responder(r), (e) => responder({ res: 'falhou', motivo: 'erro', erro: String(e && e.message || e).slice(0, 120) })).finally(() => { ocupado = false; });
+      processar(m).then((r) => responder(r), (e) => responder({ res: 'falhou', motivo: 'erro', det: `${passo}: ${String(e && e.message || e).slice(0, 90)}`, oculta: document.hidden })).finally(() => { ocupado = false; });
       return true;
     }
   };

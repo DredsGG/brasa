@@ -239,6 +239,26 @@
       };
     },
   };
+  // v1.0.3 · aba em segundo plano (pedido do André). Medido 2026-11-12 (ferramentas/medir-fundo-cdp.mjs, aba escondida de
+  // verdade, sem login): com a aba escondida o TikTok PAUSA o vídeo (código do site: o tocador só toca com !document.hidden,
+  // fora o mini player; o carrossel também para). Quando o conteúdo da Brasa pede (Auto ligado, chave "Continuar com a aba em
+  // segundo plano", só no quadro, e só na última aba do TikTok que a pessoa viu), a página passa a ver document.hidden = false /
+  // visibilityState = "visible" e não recebe o "visibilitychange" de esconder. Desligar devolve o valor real e avisa a página.
+  const dHidden = Object.getOwnPropertyDescriptor(Document.prototype, 'hidden');
+  const dVis = Object.getOwnPropertyDescriptor(Document.prototype, 'visibilityState');
+  const realHidden = () => (dHidden && dHidden.get ? dHidden.get.call(document) : false);
+  let fundo = false;
+  // v1.0.3 · a janela do guarda-foguinho abre MINIMIZADA (tiktok.com/messages#brasa-guarda): o site também a vê "visível" desde o
+  // começo, para a lista, a conversa e o editor se comportarem como na tela
+  const fundoGuarda = /#brasa-guarda/.test(location.hash);
+  if (fundoGuarda) fundo = true;
+  try {
+    Object.defineProperty(document, 'hidden', { configurable: true, get() { return fundo ? false : realHidden(); } });
+    Object.defineProperty(document, 'visibilityState', { configurable: true, get() { return fundo ? 'visible' : (dVis && dVis.get ? dVis.get.call(document) : 'visible'); } });
+  } catch (_) {}
+  const onVis = (e) => { if (fundo && realHidden()) e.stopImmediatePropagation(); };
+  addEventListener('visibilitychange', onVis, true);
+  OPS.fundo = (on) => { const era = fundo; fundo = !!on || fundoGuarda; try { document.documentElement.setAttribute('data-brasa-fundo', fundo ? '1' : '0'); } catch (_) {} if (era && !fundo && realHidden()) document.dispatchEvent(new Event('visibilitychange')); return { fundo, escondida: realHidden() }; };
   H.OPS = OPS; // as fases seguintes acrescentam operações aqui
   const onCmd = (e) => {
     let m; try { m = JSON.parse(e.detail); } catch (_) { return; }
@@ -255,6 +275,8 @@
     if (H.tratador && H.tratador.tratar === tratar) H.tratador = null;
     if (H.nav === onNav) H.nav = null;
     H.bin = null;
+    fundo = false; removeEventListener('visibilitychange', onVis, true);
+    try { delete document.hidden; delete document.visibilityState; } catch (_) {}
   };
   // itens de uma versão anterior (reinjeção) continuam valendo
   if (H.itensAntigos) { for (const it of H.itensAntigos.values()) guardar(it); }

@@ -138,6 +138,28 @@
     }
     return resp;
   }
+  // a janela do guarda à frente (estado normal, com foco) enquanto processa uma conversa; depois minimiza e devolve o foco
+  const marcaFrente = (o) => Object.assign(o, { det: 'frente ' + (o.det || '') });
+  async function naFrente(r, fn) {
+    const antes = await ext.windows.getLastFocused().catch(() => null);
+    try {
+      await ext.windows.update(r.janela, { state: 'normal', focused: true });
+      if (r.modo === 'aba') await ext.tabs.update(r.aba, { active: true });
+      await wait(1200);
+      return await fn();
+    } finally {
+      try { if (r.modo === 'janela') await ext.windows.update(r.janela, { state: 'minimized' }); } catch (_) {}
+      if (antes && antes.id !== r.janela) await ext.windows.update(antes.id, { focused: true }).catch(() => {});
+    }
+  }
+  async function deNovoNaFrente(r, conv, frase) {
+    try { await ext.tabs.reload(r.aba); } catch (_) {}
+    await wait(1500);
+    return naFrente(r, async () => {
+      if (!(await pronta(r))) return { res: 'falhou', motivo: 'paginaNaoAbriu', det: 'frente recarga' };
+      return marcaFrente(await umaConversa(r, conv, frase));
+    });
+  }
   async function rodar({ ensaio, origem }) {
     // trava SÍNCRONA, antes de qualquer await: alarme + conferência + "Mandar agora" juntos não abrem duas rodadas
     if (rodandoAqui) return { erro: 'ocupado' };
@@ -182,15 +204,23 @@
             if (!(((await get(K.fogMarcadas)) || {})[id])) continue; // desmarcada durante a rodada
           }
           const frase = fraseRodada || G.sortearFrase(lista, ultimas[id]);
-          const out = await umaConversa(r, id, frase);
-          DEF.logar('guarda', [apelido, out.res, out.motivo || ''], out.res !== 'falhou');
+          // depois que precisou ir à frente, as próximas conversas da rodada já vão à frente (sem gastar a tentativa escondida)
+          let out = r.frente ? await naFrente(r, async () => marcaFrente(await umaConversa(r, id, frase))) : await umaConversa(r, id, frase);
+          // falhou com a janela escondida (minimizada): recarrega a página (o editor pode ter ficado quebrado), traz a janela à frente
+          // e tenta ESSA conversa de novo, uma vez; depois minimiza e devolve o foco
+          if (!r.frente && out.res === 'falhou' && (out.motivo === 'naoAbriu' || out.motivo === 'naoDigitou') && out.oculta) {
+            DEF.logar('guarda', [apelido, out.res, out.motivo, out.det || ''], false);
+            r.frente = true;
+            out = await deNovoNaFrente(r, id, frase);
+          }
+          DEF.logar('guarda', [apelido, out.res, out.motivo || '', out.det || ''], out.res !== 'falhou');
           if (out.res === 'mandou' || out.res === 'ensaio') { if (out.res === 'mandou') { res.mandou++; ultimas[id] = frase; await set({ [K.fogUltima]: ultimas }); } }
           else if (out.res === 'falhou') res.falhou.push(apelido);
           else { res.pulou++; if (out.res === 'naoMandou') res.avisos.push(t ? t.fogAvisoApagou(apelido) : apelido); }
           if (out.res === 'desmarcou') { if (!ensaio) await DEF.marcar(id, false); res.avisos.push(t ? t.fogAvisoRestaurar(apelido) : apelido); }
           if (!ensaio) {
             dia = await doDia();
-            dia.convs[id] = { res: out.res, motivo: out.motivo || '', em: Date.now() };
+            dia.convs[id] = { res: out.res, motivo: out.motivo || '', det: out.det || '', em: Date.now() };
             if (out.res === 'mandou') dia.enviadas = (dia.enviadas || 0) + 1;
             await set({ [K.fogDia]: dia });
           }

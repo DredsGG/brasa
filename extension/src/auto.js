@@ -16,7 +16,8 @@
     id: 'auto', ordem: 30,
     html(T, ctx) {
       return M.cartao(ctx, 'auto', ICO_A, T['set.auto'], T.featAuto_, `<div class="campo"><span>${esc(T['set.autoFoto'])}</span>
-        <input type="number" data-auto="foto" min="2" max="60" step="1" value="${esc(ctx.S.autoFoto)}" aria-label="${esc(T['set.autoFoto'])}" style="width:60px"><span>${esc(T.autoSeg)}</span></div>`);
+        <input type="number" data-auto="foto" min="2" max="60" step="1" value="${esc(ctx.S.autoFoto)}" aria-label="${esc(T['set.autoFoto'])}" style="width:60px"><span>${esc(T.autoSeg)}</span></div>
+        ${M.grupo(T.grpFundo, M.chip(T, ctx, 'autoFundo'))}`);
     },
     wire(el, ctx) {
       const i = el.querySelector('[data-auto="foto"]');
@@ -50,7 +51,25 @@
   document.addEventListener('mouseout', onSai);
   const ligadoAqui = () => BRASA.ativo() && !!BRASA.S.auto && BRASA.ehTelaDeVideo();
   let trava = null, ultimoPasso = 0;
-  const podeAgora = () => ligadoAqui() && !document.hidden && !digitando() && !naBarra && !trava && !(BRASA.menu && BRASA.menu.aberto);
+  // ── v1.0.3 · aba em segundo plano: só a última aba do TikTok que a pessoa viu continua (sem dois áudios ao mesmo tempo)
+  // um código por ABA (sessionStorage é da aba): a cópia reinjetada da Brasa na mesma aba usa o mesmo, sem uma derrubar a outra
+  const TOKEN = (() => { try { let t = sessionStorage.getItem('brasa-aba'); if (!t) { t = Math.random().toString(36).slice(2); sessionStorage.setItem('brasa-aba', t); } return t; } catch (_) { return Math.random().toString(36).slice(2); } })(), K_ABA = 'br.abaFundo';
+  let escolhida = !document.hidden, fundoMain = null;
+  const ext = BRASA.ext;
+  const reclamar = () => { if (BRASA.dead) return; escolhida = true; try { ext.storage.local.set({ [K_ABA]: { token: TOKEN, em: Date.now() } }).catch(() => {}); } catch (_) {} };
+  if (!document.hidden) reclamar();
+  const onAba = (ch, area) => { if (!BRASA.dead && area === 'local' && ch[K_ABA] && ch[K_ABA].newValue && ch[K_ABA].newValue.token !== TOKEN) { escolhida = false; atualizarFundo(); } };
+  try { ext.storage.onChanged.addListener(onAba); } catch (_) {}
+  // SÓ no quadro (vídeo aberto pelo Explorar, perfil ou busca): lá a seta "próximo" troca o vídeo sem rolar a página e o Auto
+  // passa com a aba escondida (medido 2026-11-12, ferramentas/medir-fundo-quadro.mjs: 5 vídeos em ~90 s). No feed a troca depende
+  // da rolagem desenhada, que o navegador não faz escondida (medir-fundo-cdp.mjs): lá fingir visível só repetiria o mesmo vídeo.
+  const fundoAgora = () => !BRASA.dead && BRASA.ativo() && !!BRASA.S.auto && BRASA.S.autoFundo !== false && escolhida && !!BRASA.navegador();
+  // manda à página até ela confirmar (a ponte pode não responder na hora: aí tenta de novo no próximo segundo)
+  function atualizarFundo() { if (BRASA.dead) return; const q = fundoAgora(); try { document.documentElement.setAttribute('data-brasa-fundo-pedido', [BRASA.ativo(), !!BRASA.S.auto, BRASA.S.autoFundo !== false, escolhida, !!BRASA.navegador()].map(Number).join('')); } catch (_) {} if (q === fundoMain) return; fundoMain = q; BRASA.bridge('fundo', q).then((r) => { if (!r || r.fundo !== q) fundoMain = null; }, () => { fundoMain = null; }); }
+  const onVisib = () => { if (BRASA.dead) return; naBarra = false; if (!document.hidden) reclamar(); atualizarFundo(); };
+  document.addEventListener('visibilitychange', onVisib);
+  BRASA.fundo = () => document.hidden && fundoAgora(); // escondida, mas seguindo (o Curtir/Seguir também usa)
+  const podeAgora = () => ligadoAqui() && (!document.hidden || fundoAgora()) && !digitando() && !naBarra && !trava && !(BRASA.menu && BRASA.menu.aberto);
   BRASA.auto = { podeAgora: () => ({ ligado: ligadoAqui(), escondida: document.hidden, comentarios: comentariosAbertos(), digitando: digitando(), naBarra, trava: !!trava }) };
 
   function passar(de) {
@@ -66,16 +85,19 @@
   function volta(v) {
     if (v.__brVolta && Date.now() - v.__brVolta < 1500) return;
     v.__brVolta = Date.now();
-    setTimeout(() => { // o player volta ao 0 e toca de novo em ~50 ms; se ficou parado (pausado), não é para passar
+    const decide = () => {
       const a = artigoDaTela();
       if (!a || a.querySelector('video') !== v || (v.paused && !v.ended) || Date.now() - ultimoPasso < 1000 || Date.now() - chegouEm < 1500) return; // recém-chegado: não é volta
       if (podeAgora()) passar(idDe(a));
-    }, 200);
+    };
+    // o player volta ao 0 e toca de novo em ~50 ms; se ficou parado (pausado), não é para passar. Com a aba escondida o navegador
+    // segura os timers (até 1 por minuto): aí decide na hora (no "ended" o vídeo já acabou; na volta do tempo ele já está tocando)
+    if (document.hidden) decide(); else setTimeout(decide, 200);
   }
   const onEnded = (e) => { const v = e.target; if (v && v.tagName === 'VIDEO' && ligadoAqui()) { const a = artigoDaTela(); if (a && a.querySelector('video') === v) volta(v); } };
   document.addEventListener('ended', onEnded, true);
   let fotoChave = null, fotoDesde = 0, telaK = null, chegouEm = 0;
-  const tick = setInterval(() => {
+  function passo() {
     if (BRASA.dead) return;
     const a = artigoDaTela();
     if (trava && (idDe(a) !== trava.de || Date.now() - trava.at > 2500)) trava = null;
@@ -96,7 +118,13 @@
     const k = idDe(a);
     if (k !== fotoChave || !podeAgora()) { fotoChave = k; fotoDesde = Date.now(); return; }
     if (Date.now() - fotoDesde >= Math.max(2, +BRASA.S.autoFoto || 8) * 1000) { fotoDesde = Date.now(); passar(k); }
-  }, 250);
+  }
+  const tick = setInterval(passo, 250);
+  // escondida: o relógio é o próprio vídeo ("timeupdate" segue com a aba de fundo; os timers não)
+  let ultTU = 0;
+  const onTU = () => { if (document.hidden && Date.now() - ultTU >= 240) { ultTU = Date.now(); passo(); } };
+  document.addEventListener('timeupdate', onTU, true);
+  const tFundo = setInterval(atualizarFundo, 1000);
 
   // ───────────────────────── botão "Auto" na barra do player ─────────────────────────
   const ICO_AUTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l9 7-9 7z"/><path d="M19 5v14"/></svg>';
@@ -150,9 +178,11 @@
   }
   semAutoTT();
   const tTT = setInterval(semAutoTT, 1000);
-  const offs = [BRASA.on('settings', garantirBotoes), BRASA.on('ativo', garantirBotoes), BRASA.on('lang', pintar), BRASA.on('nav', () => { trava = null; setTimeout(garantirBotoes, 300); })];
+  const offs = [BRASA.on('settings', atualizarFundo), BRASA.on('ativo', atualizarFundo), BRASA.on('nav', () => setTimeout(atualizarFundo, 300)), BRASA.on('settings', garantirBotoes), BRASA.on('ativo', garantirBotoes), BRASA.on('lang', pintar), BRASA.on('nav', () => { trava = null; setTimeout(garantirBotoes, 300); })];
   BRASA.onStop(() => {
-    clearInterval(tick); clearInterval(tBtn); clearInterval(tTT); offs.forEach((f) => f());
+    clearInterval(tick); clearInterval(tBtn); clearInterval(tTT); clearInterval(tFundo); offs.forEach((f) => f());
+    document.removeEventListener('timeupdate', onTU, true); document.removeEventListener('visibilitychange', onVisib); try { ext.storage.onChanged.removeListener(onAba); } catch (_) {}
+    if (fundoMain) BRASA.bridge('fundo', false);
     document.documentElement.removeAttribute('data-brasa-semautott'); const stt = document.getElementById('brasa-semautott-css'); if (stt) stt.remove();
     document.removeEventListener('ended', onEnded, true); removeEventListener('pointermove', onMove, true); document.removeEventListener('mouseout', onSai);
     if (BRASA.acoes) BRASA.acoes.tirar('auto');

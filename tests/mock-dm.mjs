@@ -4,7 +4,7 @@
 //  - conversa: [data-e2e="dm-new-message-list"] com separadores [dm-new-time-separator] ("18:50" hoje; "9 de novembro de 2026, 23:33"
 //    nos outros dias), mensagens [dm-new-chat-item] > --DivMessageHorizontalContainer (row-reverse = minha), [dm-warning];
 //    20 por leva, mais antigas ao rolar para o topo;
-//  - editor contenteditable role=textbox dentro de [dm-new-input-editor]; [dm-new-send-btn] só existe com texto; Enter também envia;
+//  - editor contenteditable role=textbox dentro de [dm-new-input-editor]; [dm-new-send-btn] só existe com texto e é um <svg> (sem .click()); Enter também envia;
 //  - a URL fica /messages ao abrir conversa; pacote protobuf com StreakValue (42 dias) vindo de im-api-sg.tiktok.com por XHR.
 // Tudo que a página faz (abrir, digitar, enviar) vai para /__mock/ev, que o teste lê.
 import path from 'path'; import fs from 'fs'; import { createRequire } from 'module'; import { fileURLToPath } from 'url';
@@ -125,7 +125,7 @@ html,body{margin:0;background:${theme === 'dark' ? '#000' : '#fff'};color:${them
     rol.addEventListener('scroll', () => { if (rol.scrollTop <= 2 && mostradas < aberta.msgs.length) setTimeout(() => { const h = rol.scrollHeight; mostradas = Math.min(aberta.msgs.length, mostradas + 20); desenhar(); rol.scrollTop = rol.scrollHeight - h; }, 300); });
     const ed = document.getElementById('ed'), area = document.getElementById('area');
     const atual = () => ed.textContent.trim();
-    const botao = () => { let b = document.querySelector('[data-e2e="dm-new-send-btn"]'); if (atual() && !b) { b = document.createElement('div'); b.setAttribute('data-e2e', 'dm-new-send-btn'); b.setAttribute('role', 'button'); b.textContent = 'Enviar'; b.addEventListener('click', enviar); area.appendChild(b); } if (!atual() && b) b.remove(); };
+    const botao = () => { let b = document.querySelector('[data-e2e="dm-new-send-btn"]'); if (atual() && !b) { b = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); b.setAttribute('data-e2e', 'dm-new-send-btn'); b.setAttribute('width', '24'); b.setAttribute('height', '24'); /* no TikTok é um <svg> (medido 2026-11-16) */ b.addEventListener('click', enviar); area.appendChild(b); } if (!atual() && b) b.remove(); };
     ed.addEventListener('input', () => { if (atual()) ev({ t: 'digitou', conv: c.id, texto: atual() }); else ev({ t: 'limpou', conv: c.id }); botao(); });
     ed.addEventListener('paste', (e) => { e.preventDefault(); ed.textContent += e.clipboardData.getData('text/plain'); ed.dispatchEvent(new Event('input')); });
     ed.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); enviar(); } });

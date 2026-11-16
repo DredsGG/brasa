@@ -27,7 +27,9 @@ check('desligada: o vídeo terminou e só repetiu (não passou)', (await M()).pr
 // liga pelo botão Auto
 const cliques = await p.evaluate(() => window.__mock.cliquesPagina);
 await p.evaluate(() => document.querySelector('.brasa-auto').click());
+const fundoFeed = async () => { await wait(2500); return p.evaluate(() => document.documentElement.getAttribute('data-brasa-fundo')); };
 check('botão Auto liga a mesma chave do menu', !!(await until(async () => (await lerStorage(sw, 'br.ajustes')).auto === true)) && (await p.evaluate(() => document.querySelector('.brasa-auto').getAttribute('aria-pressed'))) === 'true');
+check('v1.0.3: no feed o Auto NÃO liga o segundo plano (lá o feed não troca de vídeo com a aba escondida)', (await fundoFeed()) !== '1', await p.evaluate(() => document.documentElement.getAttribute('data-brasa-fundo')));
 check('clique no Auto não chega ao player', (await p.evaluate(() => window.__mock.cliquesPagina)) === cliques);
 await p.screenshot({ path: path.join(SHOT, 'auto-botao.png') });
 

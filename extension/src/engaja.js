@@ -134,7 +134,7 @@
     const S = BRASA.S;
     if (!S.autoCurtir && !S.autoSeguir) return porque('desligado');
     if (!BRASA.ativo() || !BRASA.ehTelaDeVideo()) return porque('pagina-' + BRASA.page.kind);
-    if (document.hidden) return porque('aba-escondida');
+    if (document.hidden && !(BRASA.fundo && BRASA.fundo())) return porque('aba-escondida'); // v1.0.3: em segundo plano com o Auto, segue
     if (BRASA.menu && BRASA.menu.aberto) return porque('menu-aberto');
     if (!logado()) return porque('sem-conta');
     const a = artigoDaTela(), id = idDe(a);
@@ -153,6 +153,10 @@
     } finally { ocupado = false; }
   }
   const tick = setInterval(() => { passo().catch(() => { ocupado = false; }); }, 500);
+  // escondida: o relógio é o próprio vídeo (os timers das abas de fundo ficam lentos)
+  let ultTU = 0;
+  const onTU = () => { if (document.hidden && Date.now() - ultTU >= 480) { ultTU = Date.now(); passo().catch(() => { ocupado = false; }); } };
+  document.addEventListener('timeupdate', onTU, true);
 
   // ───────────────────────── botões "Curtir" e "Seguir" no bloco da Brasa (= as chaves do menu) ─────────────────────────
   const BOTOES = [['curtir', 30, 'autoCurtir', ICO_CURTIR, 'acaoCurtir', 'curtirLigado', 'curtirDesligado'], ['seguir', 40, 'autoSeguir', ICO_SEGUIR, 'acaoSeguir', 'seguirLigado', 'seguirDesligado']];
@@ -182,5 +186,5 @@
   }
   const tBtn = setInterval(garantirBotoes, 800);
   const offs = [BRASA.on('settings', garantirBotoes), BRASA.on('ativo', garantirBotoes), BRASA.on('lang', pintar), BRASA.on('nav', () => setTimeout(garantirBotoes, 300))];
-  BRASA.onStop(() => { clearInterval(tick); clearInterval(tBtn); offs.forEach((f) => f()); for (const [chave] of BOTOES) BRASA.acoes.tirar(chave); });
+  BRASA.onStop(() => { clearInterval(tick); document.removeEventListener('timeupdate', onTU, true); clearInterval(tBtn); offs.forEach((f) => f()); for (const [chave] of BOTOES) BRASA.acoes.tirar(chave); });
 })();

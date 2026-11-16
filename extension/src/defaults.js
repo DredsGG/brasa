@@ -17,6 +17,8 @@
     baixar: false, baixarCapa: true, baixarHevc: false, baixarPasta: 'Brasa',
     // fase 4 · rolagem automática (desligada de fábrica)
     auto: false, autoFoto: 8,
+    // v1.0.3 · o Auto continua com a aba do TikTok em segundo plano (só no quadro: vídeo aberto pelo Explorar, perfil ou busca; só na última aba do TikTok que a pessoa viu)
+    autoFundo: true,
     // v0.6.2 · abrir os comentários ao entrar num feed: Para você (v0.6.5: também Seguindo e Amigos), ligado de fábrica
     coment: true,
     // v0.6.4 · "Trocar de conta" na barra lateral (pelo Sair do próprio TikTok)

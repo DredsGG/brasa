@@ -2,6 +2,11 @@
 // Frases curtas, do ponto de vista de quem usa. Aparece uma vez, na primeira abertura depois da atualização.
 globalThis.BRASA_NOVIDADES = {
   pt: {
+    '1.0.3': [
+      "Guarda-foguinho consertado: a Brasa não conseguia escrever na caixa de mensagem do TikTok e por isso nada era enviado, nem no \"Mandar agora\" nem no horário. Agora ela escreve do jeito que a caixa aceita, e se algo falhar o Registro mostra o motivo com detalhes.",
+      "Com o vídeo aberto pelo Explorar, por um perfil ou pela busca (o quadro com o X no canto), o Auto agora continua quando você troca de aba: o vídeo segue tocando, passa para o próximo, e o Curtir/Seguir sozinho, se estiver ligado, vai junto. Chave \"Continuar com a aba em segundo plano\", ligada.",
+      "No feed Para você isso ainda não dá: lá o TikTok só troca de vídeo com a aba na tela.",
+    ],
     '1.0.2': [
       "O vídeo aberto de um perfil (ou do Explorar e da busca), no quadro com o X no canto, agora tem a Brasa inteira: o bloco com Baixar, Auto, Curtir e Seguir ao lado da seta, e tudo funciona ali também.",
       "No quadro, o Auto passa para o próximo quando o vídeo acaba (lá ele não repete), e os carrosséis de fotos também passam, depois dos segundos que você escolheu.",
@@ -68,6 +73,11 @@ globalThis.BRASA_NOVIDADES = {
     ],
   },
   en: {
+    '1.0.3': [
+      "Streak keeper fixed: Brasa could not type into TikTok's message box, so nothing was sent, neither with \"Send now\" nor on schedule. Now it types the way the box accepts, and if something fails the Log shows the reason in detail.",
+      "With a video opened from Explore, a profile or search (the panel with the X in the corner), Auto now keeps going when you switch tabs: the video keeps playing, moves on to the next one, and auto Like/Follow, if on, goes along. Switch \"Keep going with the tab in the background\", on.",
+      "On the For You feed this is not possible yet: there TikTok only changes videos with the tab on screen.",
+    ],
     '1.0.2': [
       "A video opened from a profile (or from Explore and search), in the panel with the X in the corner, now has all of Brasa: the block with Save, Auto, Like and Follow next to the arrow, and everything works there too.",
       "In that panel, Auto moves on when the video ends (there it does not loop), and photo carousels move on too, after the seconds you picked.",
@@ -134,6 +144,11 @@ globalThis.BRASA_NOVIDADES = {
     ],
   },
   es: {
+    '1.0.3': [
+      "Guardián de rachas arreglado: Brasa no lograba escribir en la caja de mensajes de TikTok y por eso no se enviaba nada, ni con \"Enviar ahora\" ni en el horario. Ahora escribe como la caja lo acepta, y si algo falla el Registro muestra el motivo con detalle.",
+      "Con un video abierto desde Explorar, un perfil o la búsqueda (el panel con la X en la esquina), Auto ahora sigue cuando cambias de pestaña: el video sigue sonando, pasa al siguiente, y el Me gusta/Seguir automático, si está activado, va junto. Interruptor \"Seguir con la pestaña en segundo plano\", activado.",
+      "En el feed Para ti todavía no se puede: ahí TikTok solo cambia de video con la pestaña en pantalla.",
+    ],
     '1.0.2': [
       "El video abierto desde un perfil (o desde Explorar y la búsqueda), en el panel con la X en la esquina, ahora tiene todo Brasa: el bloque con Bajar, Auto, Me gusta y Seguir junto a la flecha, y todo funciona ahí también.",
       "En ese panel, Auto pasa al siguiente cuando el video termina (ahí no se repite), y los carruseles de fotos también pasan, después de los segundos que elegiste.",
